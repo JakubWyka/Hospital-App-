@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Kuba\\source\\repos\\Hospital\\Hospital\\Hospital.csproj": {}
+    "C:\\Users\\Kuba\\Desktop\\Hospital-App-\\Hospital.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Kuba\\source\\repos\\Hospital\\Hospital\\Hospital.csproj": {
+    "C:\\Users\\Kuba\\Desktop\\Hospital-App-\\Hospital.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Kuba\\source\\repos\\Hospital\\Hospital\\Hospital.csproj",
+        "projectUniqueName": "C:\\Users\\Kuba\\Desktop\\Hospital-App-\\Hospital.csproj",
         "projectName": "Hospital",
-        "projectPath": "C:\\Users\\Kuba\\source\\repos\\Hospital\\Hospital\\Hospital.csproj",
+        "projectPath": "C:\\Users\\Kuba\\Desktop\\Hospital-App-\\Hospital.csproj",
         "packagesPath": "C:\\Users\\Kuba\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Kuba\\source\\repos\\Hospital\\Hospital\\obj\\",
+        "outputPath": "C:\\Users\\Kuba\\Desktop\\Hospital-App-\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Kuba\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -37,6 +37,22 @@
       },
       "frameworks": {
         "netcoreapp3.0": {
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[3.0.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[3.0.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[3.0.0, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",
