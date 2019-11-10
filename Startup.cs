@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.Configuration;
@@ -26,6 +27,7 @@ namespace Hospital
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddDbContext<HospitalContext>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -58,6 +60,10 @@ namespace Hospital
             {
                 var context = serviceScope.ServiceProvider.GetRequiredService<HospitalContext>();
                 context.Database.EnsureCreated();
+                context.Database.ExecuteSqlCommand("DROP TABLE IF EXISTS dbo.Patients");
+                context.Database.ExecuteSqlCommand("DROP TABLE IF EXISTS dbo.Appointments");
+                //context.Database.EnsureDeleted();
+                
                 var databaseCreator = context.Database.GetService<IDatabaseCreator>() as RelationalDatabaseCreator;
                 databaseCreator.CreateTables();
             }
