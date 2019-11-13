@@ -28,11 +28,12 @@ namespace Hospital.Controllers
         }
 
         [HttpPost]
+        [Route("Create")]
         public IActionResult CreatePatient(Patient patient) 
         {
                 context.Patients.Add(patient);
                 context.SaveChanges();
-                return RedirectToAction("ListPatients", "Patients");   
+                return RedirectToAction("ListPatients", "Patient");   
         }
 
         /*
