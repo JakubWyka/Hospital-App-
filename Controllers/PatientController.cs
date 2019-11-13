@@ -15,9 +15,16 @@ namespace Hospital.Controllers
         HospitalContext context = new HospitalContext();
 
         [HttpGet]
-        public IActionResult ListPatients() 
+        public IActionResult ListPatients()
         {
             return View(context.Patients.ToList());
+        }
+
+        [HttpGet]
+        [Route("Create")]
+        public IActionResult CreatePatient()
+        {
+            return View();
         }
 
         [HttpPost]
