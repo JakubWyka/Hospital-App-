@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Hospital.Controllers
 {
-    [Route("patient")]
+    [Route("Patient")]
     public class PatientController : Controller
     {
         HospitalContext context = new HospitalContext();
