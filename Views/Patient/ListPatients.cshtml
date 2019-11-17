@@ -31,9 +31,15 @@
                 @Html.DisplayFor(modelItem => item.age)
             </td>
             <td>
-                <a asp-action="Edit" asp-route-id="@item.id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.id">Delete</a>
+                <form method="get" class="horizontal">
+                    <button asp-action="Edit" asp-route-id="@item.id">Edit</button>
+                </form>
+                <form method="get" class="horizontal">
+                    <button asp-action="Details" asp-route-id="@item.id">Details</button>
+                </form>
+                <form method="post" class="horizontal">
+                    <button asp-action="Delete" asp-route-id="@item.id">Delete</button>
+                </form>
             </td>
         </tr>
 }

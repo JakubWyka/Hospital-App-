@@ -36,6 +36,15 @@ namespace Hospital.Controllers
                 return RedirectToAction("ListPatients", "Patient");   
         }
 
+        [HttpPost]
+        [Route("Delete")]
+        public IActionResult Delete(int id)
+        {
+            context.Patients.Remove(context.Patients.Find(id));
+            context.SaveChanges();
+            return RedirectToAction("ListPatients", "Patient");
+        }
+
         /*
         [HttpGet("/{id}")]
         public IActionResult GetPatient(int id) {
