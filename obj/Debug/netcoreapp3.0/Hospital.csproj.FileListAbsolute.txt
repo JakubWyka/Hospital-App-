@@ -289,3 +289,4 @@ C:\Users\Scran\source\repos\Hospital2\obj\Debug\netcoreapp3.0\Hospital.Views.pdb
 C:\Users\Scran\source\repos\Hospital2\obj\Debug\netcoreapp3.0\Hospital.csproj.CopyComplete
 C:\Users\Scran\source\repos\Hospital2\obj\Debug\netcoreapp3.0\Hospital.dll
 C:\Users\Scran\source\repos\Hospital2\obj\Debug\netcoreapp3.0\Hospital.pdb
+C:\Users\Scran\source\repos\Hospital2\obj\Debug\netcoreapp3.0\Razor\Views\Patient\EditPatient.cshtml.g.cs
