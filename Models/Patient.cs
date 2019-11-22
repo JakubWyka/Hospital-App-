@@ -11,8 +11,11 @@ namespace Hospital.Models
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int id { get; set; }
-       public string name { get; set; }
-       public int age { get; set; }
+        [Display(Name = "Full name")]
+        public string name { get; set; }
+        [DataType(DataType.Date)]
+        [Display(Name = "Birth date")]
+        public int birthDate { get; set; }
 
      
     }

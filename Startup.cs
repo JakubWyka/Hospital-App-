@@ -61,6 +61,7 @@ namespace Hospital
                 var context = serviceScope.ServiceProvider.GetRequiredService<HospitalContext>();
                 context.Database.EnsureCreated();
                 context.Database.ExecuteSqlCommand("DROP TABLE IF EXISTS dbo.Patients");
+                context.Database.ExecuteSqlCommand("DROP TABLE IF EXISTS dbo.Doctors");
                 context.Database.ExecuteSqlCommand("DROP TABLE IF EXISTS dbo.Appointments");
                 //context.Database.EnsureDeleted();
                 

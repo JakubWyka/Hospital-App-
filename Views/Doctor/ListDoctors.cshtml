@@ -1,13 +1,13 @@
-﻿@model IEnumerable<Hospital.Models.Patient>
+﻿@model IEnumerable<Hospital.Models.Doctor>
 
 @{
-    ViewData["Title"] = "PatientsList";
+    ViewData["Title"] = "DoctorsList";
 }
 
-<h1>PatientsList</h1>
+<h1>DoctorsList</h1>
 
 <p>
-    <a asp-action="CreatePatient">Create New</a>
+    <a asp-action="CreateDoctor">Create New</a>
 </p>
 <table class="table">
     <thead>
@@ -16,7 +16,10 @@
                 @Html.DisplayNameFor(model => model.name)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.birthDate)
+                @Html.DisplayNameFor(model => model.specializationType)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.jobSeniority)
             </th>
             <th></th>
         </tr>
@@ -28,7 +31,10 @@
                 @Html.DisplayFor(modelItem => item.name)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.birthDate)
+                @Html.DisplayFor(modelItem => item.specializationType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.jobSeniority)
             </td>
             <td>
                 <form method="get" class="horizontal">

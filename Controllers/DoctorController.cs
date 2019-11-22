@@ -9,56 +9,56 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Hospital.Controllers
 {
-    [Route("Patient")]
-    public class PatientController : Controller
+    [Route("Doctor")]
+    public class DoctorController : Controller
     {
         HospitalContext context = new HospitalContext();
 
         [HttpGet]
-        public IActionResult ListPatients()
+        public IActionResult ListDoctors()
         {
-            return View(context.Patients.ToList());
+            return View(context.Doctors.ToList());
         }
 
         [HttpGet]
         [Route("Create")]
-        public IActionResult CreatePatient()
+        public IActionResult CreateDoctor()
         {
             return View();
         }
 
         [HttpPost]
         [Route("Create")]
-        public IActionResult CreatePatient(Patient patient) 
+        public IActionResult CreateDoctor(Doctor doctor) 
         {
-                context.Patients.Add(patient);
+                context.Doctors.Add(doctor);
                 context.SaveChanges();
-                return RedirectToAction("ListPatients", "Patient");   
+                return RedirectToAction("ListDoctors", "Doctor");   
         }
 
         [HttpGet]
         [Route("Edit/{id}")]
-        public IActionResult EditPatient(int id)
+        public IActionResult EditDoctor(int id)
         {
-            return View(context.Patients.Find(id));
+            return View(context.Doctors.Find(id));
         }
 
         [HttpPost]
         [Route("Edit/{id}")]
-        public IActionResult EditPatient(Patient patient)
+        public IActionResult EditDoctor(Doctor doctor)
         {
-            context.Patients.Update(patient);
+            context.Doctors.Update(doctor);
             context.SaveChanges();
-            return RedirectToAction("ListPatients", "Patient");
+            return RedirectToAction("ListDoctors", "Doctor");
         }
 
         [HttpPost]
         [Route("Delete")]
         public IActionResult Delete(int id)
         {
-            context.Patients.Remove(context.Patients.Find(id));
+            context.Doctors.Remove(context.Doctors.Find(id));
             context.SaveChanges();
-            return RedirectToAction("ListPatients", "Patient");
+            return RedirectToAction("ListDoctors", "Doctor");
         }
 
         /*
@@ -68,14 +68,15 @@ namespace Hospital.Controllers
         }
         */
         [HttpPut("/{id}")]
-        public IActionResult UpdatePatient(Patient patient) 
+        public IActionResult UpdateDoctor(Doctor doctor) 
         {
-            Patient p = context.Patients.Where(s => s.id == patient.id).First();
-            p.name = patient.name;
-            p.birthDate = patient.birthDate;
+            Doctor p = context.Doctors.Where(s => s.id == doctor.id).First();
+            p.name = doctor.name;
+            p.specializationType = doctor.specializationType;
+            p.jobSeniority = doctor.jobSeniority;
     
             context.SaveChanges();
-            return RedirectToAction("ListPatients", "Patients");
+            return RedirectToAction("ListDoctors", "Doctors");
         }
         
 

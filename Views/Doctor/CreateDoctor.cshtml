@@ -1,16 +1,17 @@
-﻿@model Hospital.Models.Patient
+﻿@using System.Web.Mvc.Html
+@model Hospital.Models.Doctor
 
 @{
-    ViewData["Title"] = "CreatePatient";
+    ViewData["Title"] = "CreateDoctor";
 }
 
-<h1>CreatePatient</h1>
+<h1>CreateDoctor</h1>
 
 <h4>Patient</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="CreatePatient">
+        <form asp-action="CreateDoctor">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="name" class="control-label"></label>
@@ -18,9 +19,13 @@
                 <span asp-validation-for="name" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="birthDate" class="control-label"></label>
-                <input asp-for="birthDate" class="form-control" />
-                <span asp-validation-for="birthDate" class="text-danger"></span>
+                <label asp-for="specializationType" class="control-label"></label>
+                @Html.DropDownListFor(m => m.specializationType, Html.GetEnumSelectList(typeof(Hospital.Models.SpecializationType)), new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                <label asp-for="jobSeniority" class="control-label"></label>
+                <input asp-for="jobSeniority" class="form-control" />
+                <span asp-validation-for="jobSeniority" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
