@@ -8647,23 +8647,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Scran\\.nuget\\packages\\": {},
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+    "C:\\Users\\Kuba\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Scran\\source\\repos\\Hospital2\\Hospital.csproj",
+      "projectUniqueName": "C:\\Users\\Kuba\\Desktop\\Hospital-App-\\Hospital.csproj",
       "projectName": "Hospital",
-      "projectPath": "C:\\Users\\Scran\\source\\repos\\Hospital2\\Hospital.csproj",
-      "packagesPath": "C:\\Users\\Scran\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Scran\\source\\repos\\Hospital2\\obj\\",
+      "projectPath": "C:\\Users\\Kuba\\Desktop\\Hospital-App-\\Hospital.csproj",
+      "packagesPath": "C:\\Users\\Kuba\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Kuba\\Desktop\\Hospital-App-\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-      ],
       "configFilePaths": [
-        "C:\\Users\\Scran\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Kuba\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
