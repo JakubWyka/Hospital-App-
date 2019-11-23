@@ -1,0 +1,31 @@
+﻿@model Hospital.Models.AppointmentView
+
+@{
+    ViewData["Title"] = "AppointmentsList";
+}
+
+<h1>AppointmentsList</h1>
+
+<p>
+    <a asp-action="CreateAppointment">Create New</a>
+</p>
+
+<div class="form-group">
+    <label asp-for="selectedDate" class="control-label"></label>
+    <input asp-for="selectedDate" class="form-control" id="selDate" />
+    <span asp-validation-for="selectedDate" class="text-danger"></span>
+</div>
+
+
+<div class="col-lg-12 col-md-12 col-xs-12" id="divPartial">
+</div>
+
+@section Scripts {
+
+    <script type="text/javascript">
+        $("#selDate").on('change', function () {
+            
+            $("#divPartial").load('@Url.Action("Week","Appointment")' + '/' + $("#selDate").val())
+        });
+    </script>
+}

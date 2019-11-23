@@ -1,0 +1,48 @@
+﻿@using System.Web.Mvc.Html
+@model Hospital.Models.Appointment
+
+@{
+    ViewData["Title"] = "CreateAppointment";
+}
+
+<h1>CreateAppointment</h1>
+
+<h4>Patient</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="CreateAppointment">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="doctor" class="control-label"></label>
+                <input asp-for="doctor" class="form-control" />
+                <span asp-validation-for="doctor" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="patient" class="control-label"></label>
+                <input asp-for="patient" class="form-control" />
+                <span asp-validation-for="patient" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="date" class="control-label"></label>
+                <input asp-for="date" class="form-control" />
+                <span asp-validation-for="date" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="status" class="control-label"></label>
+                @Html.DropDownListFor(m => m.status, Html.GetEnumSelectList(typeof(Hospital.Models.AppointmentStatusType)), new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

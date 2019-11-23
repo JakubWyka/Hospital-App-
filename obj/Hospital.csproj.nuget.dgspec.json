@@ -45,6 +45,14 @@
               "target": "Package",
               "version": "[5.2.7, )"
             },
+            "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[3.0.0, )"
+            },
+            "Microsoft.AspNetCore.Identity.UI": {
+              "target": "Package",
+              "version": "[3.0.0, )"
+            },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
               "version": "[3.0.1, )"
@@ -66,6 +74,18 @@
             "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
               "target": "Package",
               "version": "[3.0.0, )"
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[12.0.3, )"
+            },
+            "Tiny.RestClient": {
+              "target": "Package",
+              "version": "[1.7.0, )"
+            },
+            "WebApiContrib.Formatting.JavaScriptSerializer": {
+              "target": "Package",
+              "version": "[0.9.4, )"
             }
           },
           "imports": [

@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
+
 namespace Hospital.Models
 {
     public class Patient
@@ -15,7 +16,7 @@ namespace Hospital.Models
         public string name { get; set; }
         [DataType(DataType.Date)]
         [Display(Name = "Birth date")]
-        public int birthDate { get; set; }
+        public DateTime birthDate { get; set; }
 
      
     }
