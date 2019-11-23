@@ -15,12 +15,13 @@ namespace Hospital.Areas.Identity
         public void Configure(IWebHostBuilder builder)
         {
             builder.ConfigureServices((context, services) => {
-                services.AddDbContext<UserContext>(options =>
+                services.AddDbContext<Models.UserContext>(options =>
                     options.UseSqlServer(
                         context.Configuration.GetConnectionString("UserContextConnection")));
 
-                services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                    .AddEntityFrameworkStores<UserContext>();
+                services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false).AddRoles<IdentityRole>()
+                    .AddEntityFrameworkStores<Models.UserContext>();
+
             });
         }
     }

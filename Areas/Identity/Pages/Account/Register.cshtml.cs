@@ -6,6 +6,7 @@ using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using Hospital.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -46,6 +47,9 @@ namespace Hospital.Areas.Identity.Pages.Account
 
         public class InputModel
         {
+            public string RegisterVar { get; set; }
+
+
             [Required]
             [EmailAddress]
             [Display(Name = "Email")]
@@ -55,10 +59,16 @@ namespace Hospital.Areas.Identity.Pages.Account
             [Display(Name = "Full Name")]
             public string Name { get; set; }
 
-            [Required]
             [DataType(DataType.Date)]
             [Display(Name = "Birth date")]
             public System.DateTime BirthDate { get; set; }
+
+            [DataType(DataType.Date)]
+            [Display(Name = "Job start")]
+            public System.DateTime JobSeniority { get; set; }
+
+            [Display(Name = "Specialization")]
+            public SpecializationType SpecializationType { get; set; }
 
             [Required]
             [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]
@@ -85,18 +95,34 @@ namespace Hospital.Areas.Identity.Pages.Account
             if (ModelState.IsValid)
             {
                 var user = new IdentityUser { UserName = Input.Email, Email = Input.Email };
-                var patient = new Models.Patient { name = Input.Name, birthDate = Input.BirthDate };
+                
 
                 
 
 
                 var result = await _userManager.CreateAsync(user, Input.Password);
+
+
                 if (result.Succeeded)
                 {
+                    if (User.IsInRole("Admin") && Input.RegisterVar == "Doctor")
+                    {
+                        await _userManager.AddToRoleAsync(user, "Doctor");
+                        var doctor = new Models.Doctor { name = Input.Name, jobSeniority = Input.JobSeniority, specializationType = Input.SpecializationType};
+                        doctor.userId = user.Id;
+                        var doctorController = DependencyResolver.Current.GetService<Controllers.DoctorController>();
+                        doctorController.CreateDoctor(doctor);
+                    }
+                    else
+                    {
+                        await _userManager.AddToRoleAsync(user, "Patient");
+                        var patient = new Models.Patient { name = Input.Name, birthDate = Input.BirthDate };
+                        patient.userId = user.Id;
+                        var patientController = DependencyResolver.Current.GetService<Controllers.PatientController>();
+                        patientController.CreatePatient(patient);
+                    }
 
-                    patient.userId = user.Id;
-                    var otherController = DependencyResolver.Current.GetService<Controllers.PatientController>();
-                    otherController.CreatePatient(patient);
+                    
 
                     _logger.LogInformation("User created a new account with password.");
 
@@ -117,7 +143,7 @@ namespace Hospital.Areas.Identity.Pages.Account
                     }
                     else
                     {
-                        await _signInManager.SignInAsync(user, isPersistent: false);
+                        //await _signInManager.SignInAsync(user, isPersistent: false);
                         return LocalRedirect(returnUrl);
                     }
                 }

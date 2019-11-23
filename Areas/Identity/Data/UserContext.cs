@@ -21,6 +21,22 @@ namespace Hospital.Models
             // Customize the ASP.NET Identity model and override the defaults if needed.
             // For example, you can rename the ASP.NET Identity table names and more.
             // Add your customizations after calling base.OnModelCreating(builder);
+            /*this.Roles.Add(new Microsoft.AspNetCore.Identity.IdentityRole()
+            {
+                Name = "PATIENT"
+            });
+            this.Roles.Add(new Microsoft.AspNetCore.Identity.IdentityRole()
+            {
+                Name = "DOCTOR"
+            });
+            this.Roles.Add(new Microsoft.AspNetCore.Identity.IdentityRole()
+            {
+                Name = "ADMIN"
+            });
+            this.SaveChanges();
+            */
+
+
         }
     }
 }

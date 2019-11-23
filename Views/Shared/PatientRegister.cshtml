@@ -1,0 +1,10 @@
+﻿@model Hospital.Areas.Identity.Pages.Account.RegisterModel
+@{
+    ViewData["Title"] = "PatientRegister";
+}
+
+<div class="form-group">
+    <label asp-for="Input.BirthDate" class="control-label"></label>
+    <input asp-for="Input.BirthDate" class="form-control" />
+    <span asp-validation-for="Input.BirthDate" class="text-danger"></span>
+</div>

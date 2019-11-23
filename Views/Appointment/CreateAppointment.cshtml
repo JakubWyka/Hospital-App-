@@ -15,13 +15,13 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="doctor" class="control-label"></label>
-                <input asp-for="doctor" class="form-control" />
                 <span asp-validation-for="doctor" class="text-danger"></span>
+                @Html.DropDownListFor(m => m.doctorId, (IEnumerable<SelectListItem>)ViewBag.Doctors, htmlAttributes: new { @class = "form-control" })
             </div>
             <div class="form-group">
                 <label asp-for="patient" class="control-label"></label>
-                <input asp-for="patient" class="form-control" />
                 <span asp-validation-for="patient" class="text-danger"></span>
+                @Html.DropDownListFor(m => m.patientId, (IEnumerable<SelectListItem>)ViewBag.Patients, htmlAttributes: new { @class = "form-control" })
             </div>
             <div class="form-group">
                 <label asp-for="date" class="control-label"></label>

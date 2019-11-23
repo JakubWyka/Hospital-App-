@@ -16,8 +16,11 @@ namespace Hospital.Models
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int id { get; set; }
-
+        [NotMapped]
+        public int doctorId { get; set; }
         public Doctor doctor { get; set; }
+        [NotMapped]
+        public int? patientId { get; set; }
         public Patient patient { get; set; }
 
         [DataType(DataType.Date)]

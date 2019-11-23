@@ -349,3 +349,6 @@ C:\Users\Kuba\Desktop\Hospital-App-\bin\Debug\netcoreapp3.0\runtimes\win\lib\net
 C:\Users\Kuba\Desktop\Hospital-App-\bin\Debug\netcoreapp3.0\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
 C:\Users\Kuba\Desktop\Hospital-App-\obj\Debug\netcoreapp3.0\Hospital.Views.pdb
 C:\Users\Kuba\Desktop\Hospital-App-\obj\Debug\netcoreapp3.0\Hospital.csproj.CopyComplete
+C:\Users\Scran\source\repos\Hospital2\obj\Debug\netcoreapp3.0\Razor\Views\Patient\UpdatePatient.cshtml.g.cs
+C:\Users\Scran\source\repos\Hospital2\obj\Debug\netcoreapp3.0\Razor\Views\Shared\DoctorRegister.cshtml.g.cs
+C:\Users\Scran\source\repos\Hospital2\obj\Debug\netcoreapp3.0\Razor\Views\Shared\PatientRegister.cshtml.g.cs

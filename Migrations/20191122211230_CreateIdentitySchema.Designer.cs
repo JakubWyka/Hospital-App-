@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Hospital.Migrations
 {
-    [DbContext(typeof(UserContext))]
+    [DbContext(typeof(Models.UserContext))]
     [Migration("20191122211230_CreateIdentitySchema")]
     partial class CreateIdentitySchema
     {

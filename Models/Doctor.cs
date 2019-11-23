@@ -27,7 +27,8 @@ namespace Hospital.Models
         [DataType(DataType.Date)]
         [Display(Name = "Job start")]
         public DateTime jobSeniority { get; set; }
+        public string userId { get; set; }
 
-     
+
     }
 }

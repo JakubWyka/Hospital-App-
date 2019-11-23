@@ -29,7 +29,7 @@ namespace Hospital
         {
             services.AddControllersWithViews();
             services.AddMvc();
-            services.AddDbContext<HospitalContext>();
+            services.AddDbContext<UserContext>();
 
             services.Configure<IdentityOptions>(options =>
             {
@@ -65,7 +65,7 @@ namespace Hospital
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider services)
         {
             if (env.IsDevelopment())
             {
@@ -94,16 +94,60 @@ namespace Hospital
             });
             using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
             {
-                var context = serviceScope.ServiceProvider.GetRequiredService<HospitalContext>();
+                var context = serviceScope.ServiceProvider.GetRequiredService<UserContext>();
                 context.Database.EnsureCreated();
 
                 context.Database.ExecuteSqlCommand("DROP TABLE IF EXISTS dbo.Appointments");
                 context.Database.ExecuteSqlCommand("DROP TABLE IF EXISTS dbo.Patients");
                 context.Database.ExecuteSqlCommand("DROP TABLE IF EXISTS dbo.Doctors");
-                //context.Database.EnsureDeleted();
-                
+
+
+
+                CreateRoles(services).Wait();
+
                 var databaseCreator = context.Database.GetService<IDatabaseCreator>() as RelationalDatabaseCreator;
                 databaseCreator.CreateTables();
+            }
+        }
+        private async Task CreateRoles(IServiceProvider serviceProvider)
+        {
+            //initializing custom roles 
+            var RoleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+            var UserManager = serviceProvider.GetRequiredService<UserManager<IdentityUser>>();
+            string[] roleNames = { "Admin", "Patient", "Doctor" };
+            IdentityResult roleResult;
+
+            foreach (var roleName in roleNames)
+            {
+                var roleExist = await RoleManager.RoleExistsAsync(roleName);
+                if (!roleExist)
+                {
+                    //create the roles and seed them to the database: Question 1
+                    roleResult = await RoleManager.CreateAsync(new IdentityRole(roleName));
+                }
+            }
+
+            //Here you could create a super user who will maintain the web app
+            var poweruser = new IdentityUser
+            {
+
+                UserName = Configuration["AppSettings:UserName"],
+                Email = Configuration["AppSettings:UserEmail"],
+            };
+            //Ensure you have these values in your appsettings.json file
+            string userPWD = Configuration["AppSettings:UserPassword"];
+            var _user = await UserManager.FindByNameAsync(poweruser.UserName);
+            if (_user != null) await UserManager.DeleteAsync(_user);
+            _user = null;
+
+            if (_user == null)
+            {
+                var createPowerUser = await UserManager.CreateAsync(poweruser, userPWD);
+                if (createPowerUser.Succeeded)
+                {
+                    //here we tie the new user to the role
+                    await UserManager.AddToRoleAsync(poweruser, "Admin");
+                }
             }
         }
     }

@@ -1,0 +1,14 @@
+﻿@model Hospital.Areas.Identity.Pages.Account.RegisterModel
+@{
+    ViewData["Title"] = "DoctorRegister";
+}
+
+<div class="form-group">
+    <label asp-for="Input.SpecializationType" class="control-label"></label>
+    @Html.DropDownListFor(m => m.Input.SpecializationType, Html.GetEnumSelectList(typeof(Hospital.Models.SpecializationType)), new { @class = "form-control" })
+</div>
+<div class="form-group">
+    <label asp-for="Input.JobSeniority" class="control-label"></label>
+    <input asp-for="Input.JobSeniority" class="form-control" />
+    <span asp-validation-for="Input.JobSeniority" class="text-danger"></span>
+</div>

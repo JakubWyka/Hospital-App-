@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Hospital
 {
-    public class HospitalContext : DbContext
+    public class UserContext : DbContext
     {
         public DbSet<Patient> Patients { get; set; }
         public DbSet<Doctor> Doctors { get; set; }

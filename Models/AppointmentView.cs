@@ -11,8 +11,12 @@ namespace Hospital.Models
     {
         //[DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         //public int id { get; set; }
+        [Display(Name = "Select date")]
         [DataType(DataType.Date)]
         public DateTime selectedDate { get; set; }
+
+        [Display(Name = "Select doctor")]
+        public Doctor selectedDoctor { get; set; }
 
     }
 }
