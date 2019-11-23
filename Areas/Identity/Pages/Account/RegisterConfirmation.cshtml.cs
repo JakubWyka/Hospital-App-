@@ -28,7 +28,7 @@ namespace Hospital.Areas.Identity.Pages.Account
 
         public string EmailConfirmationUrl { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(string email, DateTime birthDate, String name)
+        public async Task<IActionResult> OnGetAsync(string email)
         {
             if (email == null)
             {
@@ -52,7 +52,7 @@ namespace Hospital.Areas.Identity.Pages.Account
                 EmailConfirmationUrl = Url.Page(
                     "/Account/ConfirmEmail",
                     pageHandler: null,
-                    values: new { area = "Identity", userId = userId, birthDate = birthDate, name = name, code = code },
+                    values: new { area = "Identity", userId = userId, code = code },
                     protocol: Request.Scheme);
 
 

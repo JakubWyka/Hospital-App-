@@ -40,7 +40,8 @@ namespace Hospital.Controllers
         [Route("Edit/{id}")]
         public IActionResult EditPatient(int id)
         {
-            return View(context.Patients.Find(id));
+            var patient = context.Patients.Find(id);
+            return View(patient);
         }
 
         [HttpPost]
@@ -73,6 +74,7 @@ namespace Hospital.Controllers
             Patient p = context.Patients.Where(s => s.id == patient.id).First();
             p.name = patient.name;
             p.birthDate = patient.birthDate;
+            p.userId = patient.userId;
     
             context.SaveChanges();
             return RedirectToAction("ListPatients", "Patients");

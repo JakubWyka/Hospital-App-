@@ -31,7 +31,7 @@ namespace Hospital.Areas.Identity.Pages.Account
         [TempData]
         public string StatusMessage { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(string userId, DateTime birthDate, String name, string code)
+        public async Task<IActionResult> OnGetAsync(string userId, string code)
         {
             if (userId == null || code == null)
             {
@@ -54,10 +54,6 @@ namespace Hospital.Areas.Identity.Pages.Account
             {
                 
 
-
-                Models.Patient patient = new Models.Patient { birthDate = birthDate, name = name};
-                var otherController = DependencyResolver.Current.GetService<Controllers.PatientController>();
-                otherController.CreatePatient(patient);
                 //new Controllers.PatientController().CreatePatient(pat)
                 /*String CreatePatient = Url.Action(
                     "Create", "Patient", null, "https"
