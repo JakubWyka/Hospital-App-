@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Hospital.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -38,6 +39,9 @@ namespace Hospital.Controllers
         [Route("Create")]
         public IActionResult CreateAppointment()
         {
+            ViewBag.Patients = new SelectList(context.Patients, "id", "name");
+            
+            ViewBag.Doctors = new SelectList(context.Doctors, "id", "name");
             return View();
         }
 
