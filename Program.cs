@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -35,6 +36,15 @@ namespace Hospital
                             .First()
                             .GetCustomAttribute<DisplayAttribute>()
                             .GetName();
+        }
+    }
+    public static class Extenstions
+    {
+        public static string GetUserId(ClaimsPrincipal User)
+        {
+            var claimsIdentity = User.Identity as ClaimsIdentity;
+            var userIdClaim = claimsIdentity.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier);
+            return userIdClaim.Value;
         }
     }
 }

@@ -352,3 +352,7 @@ C:\Users\Kuba\Desktop\Hospital-App-\obj\Debug\netcoreapp3.0\Hospital.csproj.Copy
 C:\Users\Scran\source\repos\Hospital2\obj\Debug\netcoreapp3.0\Razor\Views\Patient\UpdatePatient.cshtml.g.cs
 C:\Users\Scran\source\repos\Hospital2\obj\Debug\netcoreapp3.0\Razor\Views\Shared\DoctorRegister.cshtml.g.cs
 C:\Users\Scran\source\repos\Hospital2\obj\Debug\netcoreapp3.0\Razor\Views\Shared\PatientRegister.cshtml.g.cs
+C:\Users\Scran\source\repos\Hospital2\obj\Debug\netcoreapp3.0\Razor\Views\Appointment\DoctorWeekAppointments.cshtml.g.cs
+C:\Users\Scran\source\repos\Hospital2\obj\Debug\netcoreapp3.0\Razor\Views\Appointment\ViewAppointment.cshtml.g.cs
+C:\Users\Scran\source\repos\Hospital2\obj\Debug\netcoreapp3.0\Razor\Views\Appointment\MyListAppointments.cshtml.g.cs
+C:\Users\Scran\source\repos\Hospital2\obj\Debug\netcoreapp3.0\Razor\Views\Appointment\MyWeekAppointments.cshtml.g.cs
