@@ -18,10 +18,12 @@ namespace Hospital.Models
         public int id { get; set; }
         [NotMapped]
         public int doctorId { get; set; }
-        public Doctor doctor { get; set; }
+        public virtual Doctor doctor { get; set; }
         [NotMapped]
         public int? patientId { get; set; }
-        public Patient patient { get; set; }
+        public virtual Patient patient { get; set; }
+
+        public string reason { get; set; }
 
         [DataType(DataType.Date)]
         public DateTime date { get; set; }

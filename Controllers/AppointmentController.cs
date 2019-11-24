@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -33,6 +34,29 @@ namespace Hospital.Controllers
             return View();
         }
 
+        [Route("Me")]
+        [HttpGet]
+        public IActionResult MyListAppointments()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        [Route("View/{appId}")]
+        public IActionResult ViewAppointment(int appId)
+        {
+            Appointment appointment = context.Appointments.Include("patient").Include("doctor").FirstOrDefault(a => a.id == appId);
+            if (User.IsInRole("Patient"))
+            {
+                if (Extenstions.GetUserId(User) != appointment.patient.userId)
+                {
+                    return RedirectToAction("ListAppointments", "Appointment");
+                }
+            }
+            ViewBag.Doctors = new SelectList(context.Doctors, "id", "name");
+            return View(appointment);
+        }
+
         [HttpGet]
         [Route("Week/{date}/{doctorId}")]
         public IActionResult WeekAppointments(DateTime date, int doctorId)
@@ -40,8 +64,43 @@ namespace Hospital.Controllers
             int diff = ((7 + (date.DayOfWeek - DayOfWeek.Monday)) % 7);
             date = date.AddDays((-1) * diff).Date;
             date = date - date.TimeOfDay;
-            List<Appointment> appointments = context.Appointments.Where(a => a.date >= date && a.date < date.AddDays(7)).Where(a => a.doctor.id == doctorId).ToList();
+            List<Appointment> appointments = context.Appointments
+                .Where(a => a.date >= date && a.date < date.AddDays(7))
+                .Where(a => a.doctor.id == doctorId)
+                .Include(m => m.doctor).ToList();
             
+
+            return PartialView(appointments);
+        }
+
+        [Authorize(Roles = "Doctor")]
+        [HttpGet]
+        [Route("DoctorWeek/{date}")]
+        public IActionResult DoctorWeekAppointments(DateTime date)
+        {
+            int diff = ((7 + (date.DayOfWeek - DayOfWeek.Monday)) % 7);
+            date = date.AddDays((-1) * diff).Date;
+            date = date - date.TimeOfDay;
+            List<Appointment> appointments = context.Appointments
+                .Where(a => a.date >= date && a.date < date.AddDays(7))
+                .Where(a => a.doctor.userId == Extenstions.GetUserId(User))
+                .Include(m => m.doctor).ToList();
+
+            return PartialView(appointments);
+        }
+
+        [Authorize(Roles = "Patient")]
+        [HttpGet]
+        [Route("MyWeek/{date}")]
+        public IActionResult MyWeekAppointments(DateTime date)
+        {
+            int diff = ((7 + (date.DayOfWeek - DayOfWeek.Monday)) % 7);
+            date = date.AddDays((-1) * diff).Date;
+            date = date - date.TimeOfDay;
+            List<Appointment> appointments = context.Appointments
+                .Where(a => a.date >= date && a.date < date.AddDays(7))
+                .Where(a => a.patient.userId == Extenstions.GetUserId(User))
+                .Include(m => m.patient).Include(m => m.doctor).ToList();
 
             return PartialView(appointments);
         }
@@ -62,10 +121,39 @@ namespace Hospital.Controllers
         public IActionResult CreateAppointment(Appointment appointment) 
         {
             appointment.doctor = context.Doctors.Find(appointment.doctorId);
-            if (appointment.patientId != null) appointment.patient = context.Patients.Find(appointment.patientId);
+            if (User.IsInRole("Doctor"))
+            {
+                
+                var claimsIdentity = User.Identity as ClaimsIdentity;
+                string userIdValue = "null";
+                var userIdClaim = claimsIdentity.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier);
+                userIdValue = userIdClaim.Value;
+
+                appointment.doctor = context.Doctors.FirstOrDefault(d => d.userId == userIdValue);
+
+
+                List<Appointment> myAppointments = context.Appointments.Where(a => a.doctor.userId == userIdValue && appointment.date == a.date).ToList();
+                if(myAppointments.Count > 0)
+                {
+                    // Doctor has appointment at that date
+                    ModelState.AddModelError(string.Empty, "You already have appointment at that date");
+                    ViewBag.Patients = new SelectList(context.Patients, "id", "name");
+                    ViewBag.Doctors = new SelectList(context.Doctors, "id", "name");
+                    return View();
+                }
+            }
+            if (appointment.patientId != null)
+            {
+                appointment.patient = context.Patients.Find(appointment.patientId);
+                appointment.status = AppointmentStatusType.Reserved;
+            }
+            else
+            {
+                appointment.status = AppointmentStatusType.Open;
+            }
             context.Appointments.Add(appointment);
-                context.SaveChanges();
-                return RedirectToAction("ListAppointments", "Appointment");   
+            context.SaveChanges();
+            return RedirectToAction("ListAppointments", "Appointment");   
         }
 
         [Authorize(Roles = "Admin, Doctor")]
@@ -91,8 +179,20 @@ namespace Hospital.Controllers
         [Route("Reserve/{id}")]
         public IActionResult ReserveAppointment(int id)
         {
-
-            return View(context.Appointments.Find(id));
+            Appointment appointment = context.Appointments.Include("patient").FirstOrDefault(a => a.id == id);
+            if (User.IsInRole("Patient"))
+            {
+                var claimsIdentity = User.Identity as ClaimsIdentity;
+                string userIdValue = "null";
+                var userIdClaim = claimsIdentity.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier);
+                userIdValue = userIdClaim.Value;
+                if (appointment.patient != null && appointment.patient.userId != userIdValue)
+                {
+                    return RedirectToAction("ListAppointments", "Appointment");
+                }
+            }
+            
+            return View(appointment);
         }
 
         [Authorize(Roles = "Patient, Admin")]
@@ -100,21 +200,25 @@ namespace Hospital.Controllers
         [Route("Reserve/{id}")]
         public IActionResult ReserveAppointment(Appointment appointment)
         {
-            var claimsIdentity = User.Identity as ClaimsIdentity;
+            string reason = appointment.reason;
+            appointment = context.Appointments.Include(m => m.doctor).SingleOrDefault(x => x.id == appointment.id);
+            
 
+            if (appointment.status != AppointmentStatusType.Open)
+            {
+                // Appointment is reserved or closed
+                ModelState.AddModelError(string.Empty, "Appointment is not reservable");
+                return View();
+            }
+
+            var claimsIdentity = User.Identity as ClaimsIdentity;
             string userIdValue = "null";
             var userIdClaim = claimsIdentity.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier);
-
             userIdValue = userIdClaim.Value;
-            // Check if patient to be done
-
             appointment.patient = context.Patients.Where(s => s.userId == userIdValue).FirstOrDefault();
-
-
-
-
-            context.Appointments.Update(appointment);
+            appointment.reason = reason;
             appointment.status = AppointmentStatusType.Reserved;
+            context.Appointments.Update(appointment);
             context.SaveChanges();
             return RedirectToAction("ListAppointments", "Appointment");
         }
@@ -143,6 +247,7 @@ namespace Hospital.Controllers
             p.date = appointment.date;
             p.doctor = appointment.doctor;
             p.patient = appointment.patient;
+            p.reason = appointment.reason;
             p.status = appointment.status;
     
             context.SaveChanges();

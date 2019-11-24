@@ -19,6 +19,11 @@
                 <span asp-validation-for="date" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="reason" class="control-label"></label>
+                @Html.TextArea("reason", @Model.reason, new { @class = "form-control" })
+                <span asp-validation-for="reason" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <input type="submit" value="Reserve" class="btn btn-primary" />
             </div>
         </form>
@@ -30,5 +35,6 @@
 </div>
 
 @section Scripts {
+
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

@@ -3,9 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using DinkToPdf;
-using DinkToPdf.Contracts;
-using Hospital.Models;
+using System.Web.Mvc;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -109,14 +107,12 @@ namespace Hospital
                 context.Database.ExecuteSqlCommand("DROP TABLE IF EXISTS dbo.Doctors");
 
 
+
                 
-                CreateRoles(services).Wait();
 
                 var databaseCreator = context.Database.GetService<IDatabaseCreator>() as RelationalDatabaseCreator;
                 databaseCreator.CreateTables();
-                context.Doctors.Add(new Doctor{name="aaa"});
-                context.Patients.Add(new Patient { name = "bbb" });
-                context.SaveChanges();
+                CreateRoles(services).Wait();
             }
             
         }
@@ -133,33 +129,57 @@ namespace Hospital
                 var roleExist = await RoleManager.RoleExistsAsync(roleName);
                 if (!roleExist)
                 {
-                    //create the roles and seed them to the database: Question 1
                     roleResult = await RoleManager.CreateAsync(new IdentityRole(roleName));
                 }
             }
 
-            //Here you could create a super user who will maintain the web app
-            var poweruser = new IdentityUser
-            {
+            AddUser(serviceProvider, "root@root.pl", "root12", "Admin").Wait();
+            AddUser(serviceProvider, "a1@a1.pl", "123123", "Patient", "Patient1").Wait();
+            AddUser(serviceProvider, "a2@a2.pl", "123123", "Patient", "Patient2").Wait();
+            AddUser(serviceProvider, "b1@b1.pl", "123123", "Doctor", "Doctor1").Wait();
+            AddUser(serviceProvider, "b2@b2.pl", "123123", "Doctor", "Doctor2").Wait();
 
-                UserName = Configuration["AppSettings:UserName"],
-                Email = Configuration["AppSettings:UserEmail"],
+        }
+
+        private async Task AddUser(IServiceProvider serviceProvider, string name, string pass, string role, string fullName = "Def")
+        {
+            var RoleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+            var UserManager = serviceProvider.GetRequiredService<UserManager<IdentityUser>>();
+
+            var user = new IdentityUser
+            {
+                UserName = name,
+                Email = name,
             };
-            //Ensure you have these values in your appsettings.json file
-            string userPWD = Configuration["AppSettings:UserPassword"];
-            var _user = await UserManager.FindByNameAsync(poweruser.UserName);
+            string userPWD = pass;
+
+            var _user = await UserManager.FindByNameAsync(user.UserName);
             if (_user != null) await UserManager.DeleteAsync(_user);
             _user = null;
 
             if (_user == null)
             {
-                var createPowerUser = await UserManager.CreateAsync(poweruser, userPWD);
-                if (createPowerUser.Succeeded)
+                var createUser = await UserManager.CreateAsync(user, userPWD);
+                if (createUser.Succeeded)
                 {
-                    //here we tie the new user to the role
-                    await UserManager.AddToRoleAsync(poweruser, "Admin");
+                    await UserManager.AddToRoleAsync(user, role);
+                    if (role == "Doctor")
+                    {
+                        var doctor = new Models.Doctor { name = fullName };
+                        doctor.userId = user.Id;
+                        var doctorController = System.Web.Mvc.DependencyResolver.Current.GetService<Controllers.DoctorController>();
+                        doctorController.CreateDoctor(doctor);
+                    }
+                    else if (role == "Patient")
+                    {
+                        var patient = new Models.Patient { name = fullName };
+                        patient.userId = user.Id;
+                        var patientController = System.Web.Mvc.DependencyResolver.Current.GetService<Controllers.PatientController>();
+                        patientController.CreatePatient(patient);
+                    }
                 }
             }
+            
         }
     }
 }
