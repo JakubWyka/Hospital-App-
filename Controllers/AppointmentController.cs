@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using DinkToPdf;
+using DinkToPdf.Contracts;
 using Hospital.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -17,7 +20,12 @@ namespace Hospital.Controllers
     public class AppointmentController : Controller
     {
         UserContext context = new UserContext();
+        private IConverter _converter;
 
+        public AppointmentController(IConverter converter)
+        {
+            _converter = converter;
+        }
         [HttpGet]
         public IActionResult ListAppointments()
         {
@@ -140,7 +148,94 @@ namespace Hospital.Controllers
             context.SaveChanges();
             return RedirectToAction("ListAppointments", "Appointment");
         }
-        
 
+
+            public string GetHTMLString()
+            {
+            var appointments = context.Appointments;
+            var pa = context.Patients.ToList();
+            var doc = context.Doctors.ToList();
+            var sb = new System.Text.StringBuilder();
+                
+                sb.Append(@"
+                        <html>
+                            <head>
+                            </head>
+                            <body>
+                                <div class='header'><h1>This is the generated PDF report!!!</h1></div>
+                                <table align='center'>
+                                    <tr>
+                                        <th>Doctor</th>
+                                        <th>Patient</th>
+                                        <th>Date</th>
+                                        
+                                    </tr>");
+
+                foreach (var emp in appointments)
+                {
+                int? idd = emp.doctorId;
+                int? idp = emp.patientId;
+                // string named = doc.Find(x => x.id == idd).name;
+                string named = emp.doctor.name;
+                //string namep = pa.Find(x => x.id == idp).name;
+                string namep = emp.patient.name;
+                string date = emp.date.ToString();
+                    sb.AppendFormat(@"<tr>
+                                    <td>{0}</td>
+                                    <td>{1}</td>
+                                    <td>{2}</td>
+                                
+                                  </tr>", named,namep, date);
+                }
+
+                sb.Append(@"
+                                </table>
+                            </body>
+                        </html>");
+
+                return sb.ToString();
+            }
+        [Route("PDF")]
+        public IActionResult CreatePDF(Appointment appointment)
+        {
+
+            var globalSettings = new GlobalSettings
+            {
+                ColorMode = ColorMode.Color,
+                Orientation = Orientation.Portrait,
+                PaperSize = PaperKind.A4,
+                Margins = new MarginSettings { Top = 10 },
+                DocumentTitle = "PDF Report",
+                Out = "Employee_Report.pdf"
+            };
+
+            var objectSettings = new ObjectSettings
+            {
+                PagesCount = true,
+                HtmlContent = GetHTMLString(),
+                WebSettings = { DefaultEncoding = "utf-8", UserStyleSheet = Path.Combine(Directory.GetCurrentDirectory(), "assets", "styles.css") },
+                HeaderSettings = { FontName = "Arial", FontSize = 9, Right = "Page [page] of [toPage]", Line = true },
+                FooterSettings = { FontName = "Arial", FontSize = 9, Line = true, Center = "Report Footer" }
+            };
+
+            var pdf = new HtmlToPdfDocument()
+            {
+                GlobalSettings = globalSettings,
+                Objects = { objectSettings }
+            };
+
+
+            var file = _converter.Convert(pdf);
+            // return File(Path.Combine(Directory.GetCurrentDirectory(), "Employee_Report.pdf"), "application/pdf");
+            var fileStream = new FileStream(Path.Combine(Directory.GetCurrentDirectory(), "Employee_Report.pdf"),
+                                      FileMode.Open,
+                                      FileAccess.Read
+                                    );
+            var fsResult = new FileStreamResult(fileStream, "application/pdf");
+            return fsResult;
+
+        }
     }
-}
+    }
+
+

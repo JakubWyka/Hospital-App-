@@ -1,7 +1,11 @@
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using DinkToPdf;
+using DinkToPdf.Contracts;
+using Hospital.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -62,10 +66,13 @@ namespace Hospital
                 options.AccessDeniedPath = "/Identity/Account/AccessDenied";
                 options.SlidingExpiration = true;
             });
+            CustomAssemblyLoadContext context = new CustomAssemblyLoadContext();
+           // context.LoadUnmanagedLibrary(Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "..\\..\\..\\")));
+            services.AddSingleton(typeof(IConverter), new SynchronizedConverter(new PdfTools()));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider services)
+        public void Configure(IApplicationBuilder app, IHostEnvironment env, IServiceProvider services)
         {
             if (env.IsDevelopment())
             {
@@ -96,18 +103,22 @@ namespace Hospital
             {
                 var context = serviceScope.ServiceProvider.GetRequiredService<UserContext>();
                 context.Database.EnsureCreated();
-
+                
                 context.Database.ExecuteSqlCommand("DROP TABLE IF EXISTS dbo.Appointments");
                 context.Database.ExecuteSqlCommand("DROP TABLE IF EXISTS dbo.Patients");
                 context.Database.ExecuteSqlCommand("DROP TABLE IF EXISTS dbo.Doctors");
 
 
-
+                
                 CreateRoles(services).Wait();
 
                 var databaseCreator = context.Database.GetService<IDatabaseCreator>() as RelationalDatabaseCreator;
                 databaseCreator.CreateTables();
+                context.Doctors.Add(new Doctor{name="aaa"});
+                context.Patients.Add(new Patient { name = "bbb" });
+                context.SaveChanges();
             }
+            
         }
         private async Task CreateRoles(IServiceProvider serviceProvider)
         {
