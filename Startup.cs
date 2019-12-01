@@ -4,6 +4,8 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using DinkToPdf;
+using DinkToPdf.Contracts;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -31,7 +33,7 @@ namespace Hospital
         {
             services.AddControllersWithViews();
             services.AddMvc();
-            services.AddDbContext<UserContext>();
+            services.AddDbContext<HospitalContext>();
 
             services.Configure<IdentityOptions>(options =>
             {
@@ -99,7 +101,7 @@ namespace Hospital
             });
             using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
             {
-                var context = serviceScope.ServiceProvider.GetRequiredService<UserContext>();
+                var context = serviceScope.ServiceProvider.GetRequiredService<HospitalContext>();
                 context.Database.EnsureCreated();
                 
                 context.Database.ExecuteSqlCommand("DROP TABLE IF EXISTS dbo.Appointments");
@@ -119,7 +121,7 @@ namespace Hospital
         private async Task CreateRoles(IServiceProvider serviceProvider)
         {
             //initializing custom roles 
-            var RoleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+             var RoleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
             var UserManager = serviceProvider.GetRequiredService<UserManager<IdentityUser>>();
             string[] roleNames = { "Admin", "Patient", "Doctor" };
             IdentityResult roleResult;
@@ -174,8 +176,12 @@ namespace Hospital
                     {
                         var patient = new Models.Patient { name = fullName };
                         patient.userId = user.Id;
-                        var patientController = System.Web.Mvc.DependencyResolver.Current.GetService<Controllers.PatientController>();
-                        patientController.CreatePatient(patient);
+                        //var patientController = System.Web.Mvc.DependencyResolver.Current.GetService<Controllers.PatientController>();
+                       
+                            var context = serviceProvider.GetRequiredService<HospitalContext>();
+                            context.Patients.Add(patient);
+                            context.SaveChanges();
+                        
                     }
                 }
             }

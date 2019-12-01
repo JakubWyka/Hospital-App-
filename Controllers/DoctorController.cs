@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Hospital.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -14,8 +15,14 @@ namespace Hospital.Controllers
     [Route("Doctor")]
     public class DoctorController : Controller
     {
-        UserContext context = new UserContext();
+        private readonly ILogger _logger;
 
+        public DoctorController(ILogger<HomeController> logger)
+        {
+            _logger = logger;
+        }
+        // UserContext context = new UserContext();
+        HospitalContext context = new HospitalContext();
         [HttpGet]
         public IActionResult ListDoctors()
         {
@@ -37,6 +44,7 @@ namespace Hospital.Controllers
         {
                 context.Doctors.Add(doctor);
                 context.SaveChanges();
+                _logger.LogInformation(DateTime.Now.ToString() + ": new Doctor added: " + doctor.name);
                 return RedirectToAction("ListDoctors", "Doctor");   
         }
 
@@ -55,6 +63,7 @@ namespace Hospital.Controllers
         {
             context.Doctors.Update(doctor);
             context.SaveChanges();
+            _logger.LogInformation(DateTime.Now.ToString() + ": Doctor edit: " + doctor.name);
             return RedirectToAction("ListDoctors", "Doctor");
         }
 
@@ -65,6 +74,7 @@ namespace Hospital.Controllers
         {
             context.Doctors.Remove(context.Doctors.Find(id));
             context.SaveChanges();
+            _logger.LogInformation(DateTime.Now.ToString() + ": Doctor delete: " + id);
             return RedirectToAction("ListDoctors", "Doctor");
         }
 
@@ -85,6 +95,7 @@ namespace Hospital.Controllers
             p.userId = doctor.userId;
     
             context.SaveChanges();
+            _logger.LogInformation(DateTime.Now.ToString() + ": Doctor update: " + doctor.id);
             return RedirectToAction("ListDoctors", "Doctors");
         }
         
