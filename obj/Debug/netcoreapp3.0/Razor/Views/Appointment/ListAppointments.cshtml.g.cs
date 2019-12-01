@@ -13,14 +13,14 @@ namespace AspNetCore
     using Microsoft.AspNetCore.Mvc.Rendering;
     using Microsoft.AspNetCore.Mvc.ViewFeatures;
 #nullable restore
-#line 1 "C:\Users\Kuba\Desktop\Hospital-App-\Views\_ViewImports.cshtml"
+#line 1 "C:\Users\Scran\source\repos\Hospital2\Views\_ViewImports.cshtml"
 using Hospital;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 2 "C:\Users\Kuba\Desktop\Hospital-App-\Views\_ViewImports.cshtml"
+#line 2 "C:\Users\Scran\source\repos\Hospital2\Views\_ViewImports.cshtml"
 using Hospital.Models;
 
 #line default
@@ -64,7 +64,7 @@ using Hospital.Models;
         {
             WriteLiteral("\r\n");
 #nullable restore
-#line 3 "C:\Users\Kuba\Desktop\Hospital-App-\Views\Appointment\ListAppointments.cshtml"
+#line 3 "C:\Users\Scran\source\repos\Hospital2\Views\Appointment\ListAppointments.cshtml"
   
     ViewData["Title"] = "AppointmentsList";
 
@@ -94,7 +94,7 @@ using Hospital.Models;
             __Microsoft_AspNetCore_Mvc_TagHelpers_LabelTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.TagHelpers.LabelTagHelper>();
             __tagHelperExecutionContext.Add(__Microsoft_AspNetCore_Mvc_TagHelpers_LabelTagHelper);
 #nullable restore
-#line 14 "C:\Users\Kuba\Desktop\Hospital-App-\Views\Appointment\ListAppointments.cshtml"
+#line 14 "C:\Users\Scran\source\repos\Hospital2\Views\Appointment\ListAppointments.cshtml"
 __Microsoft_AspNetCore_Mvc_TagHelpers_LabelTagHelper.For = ModelExpressionProvider.CreateModelExpression(ViewData, __model => __model.selectedDate);
 
 #line default
@@ -116,7 +116,7 @@ __Microsoft_AspNetCore_Mvc_TagHelpers_LabelTagHelper.For = ModelExpressionProvid
             __Microsoft_AspNetCore_Mvc_TagHelpers_InputTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.TagHelpers.InputTagHelper>();
             __tagHelperExecutionContext.Add(__Microsoft_AspNetCore_Mvc_TagHelpers_InputTagHelper);
 #nullable restore
-#line 15 "C:\Users\Kuba\Desktop\Hospital-App-\Views\Appointment\ListAppointments.cshtml"
+#line 15 "C:\Users\Scran\source\repos\Hospital2\Views\Appointment\ListAppointments.cshtml"
 __Microsoft_AspNetCore_Mvc_TagHelpers_InputTagHelper.For = ModelExpressionProvider.CreateModelExpression(ViewData, __model => __model.selectedDate);
 
 #line default
@@ -139,7 +139,7 @@ __Microsoft_AspNetCore_Mvc_TagHelpers_InputTagHelper.For = ModelExpressionProvid
             __Microsoft_AspNetCore_Mvc_TagHelpers_ValidationMessageTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.TagHelpers.ValidationMessageTagHelper>();
             __tagHelperExecutionContext.Add(__Microsoft_AspNetCore_Mvc_TagHelpers_ValidationMessageTagHelper);
 #nullable restore
-#line 16 "C:\Users\Kuba\Desktop\Hospital-App-\Views\Appointment\ListAppointments.cshtml"
+#line 16 "C:\Users\Scran\source\repos\Hospital2\Views\Appointment\ListAppointments.cshtml"
 __Microsoft_AspNetCore_Mvc_TagHelpers_ValidationMessageTagHelper.For = ModelExpressionProvider.CreateModelExpression(ViewData, __model => __model.selectedDate);
 
 #line default

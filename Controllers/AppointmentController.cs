@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Caching.Distributed;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -20,7 +21,7 @@ namespace Hospital.Controllers
     [Route("Appointment")]
     public class AppointmentController : Controller
     {
-        UserContext context = new UserContext();
+        HostpitalContext context = new HostpitalContext();
         private IConverter _converter;
 
         public AppointmentController(IConverter converter)

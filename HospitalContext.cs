@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Hospital
 {
-    public class UserContext : DbContext
+    public class HostpitalContext : DbContext
     {
         public DbSet<Patient> Patients { get; set; }
         public DbSet<Doctor> Doctors { get; set; }
@@ -15,7 +15,7 @@ namespace Hospital
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Server=(localdb)\MSSQLLocalDB;Database=Hospital;Trusted_Connection=True;");
+            optionsBuilder.UseSqlServer(@"Server=(localdb)\MSSQLLocalDB;Database=Hospital;");
         }
     }
 }

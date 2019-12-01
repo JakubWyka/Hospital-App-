@@ -13,21 +13,21 @@ namespace AspNetCore
     using Microsoft.AspNetCore.Mvc.Rendering;
     using Microsoft.AspNetCore.Mvc.ViewFeatures;
 #nullable restore
-#line 1 "C:\Users\Kuba\Desktop\Hospital-App-\Views\_ViewImports.cshtml"
+#line 1 "C:\Users\Scran\source\repos\Hospital2\Views\_ViewImports.cshtml"
 using Hospital;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 2 "C:\Users\Kuba\Desktop\Hospital-App-\Views\_ViewImports.cshtml"
+#line 2 "C:\Users\Scran\source\repos\Hospital2\Views\_ViewImports.cshtml"
 using Hospital.Models;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 1 "C:\Users\Kuba\Desktop\Hospital-App-\Views\Appointment\ReserveAppointment.cshtml"
+#line 1 "C:\Users\Scran\source\repos\Hospital2\Views\Appointment\ReserveAppointment.cshtml"
 using System.Web.Mvc.Html;
 
 #line default
@@ -74,7 +74,7 @@ using System.Web.Mvc.Html;
         {
             WriteLiteral("\r\n");
 #nullable restore
-#line 4 "C:\Users\Kuba\Desktop\Hospital-App-\Views\Appointment\ReserveAppointment.cshtml"
+#line 4 "C:\Users\Scran\source\repos\Hospital2\Views\Appointment\ReserveAppointment.cshtml"
   
     ViewData["Title"] = "ReserveAppointment";
 
@@ -90,7 +90,7 @@ using System.Web.Mvc.Html;
                 __Microsoft_AspNetCore_Mvc_TagHelpers_ValidationSummaryTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.TagHelpers.ValidationSummaryTagHelper>();
                 __tagHelperExecutionContext.Add(__Microsoft_AspNetCore_Mvc_TagHelpers_ValidationSummaryTagHelper);
 #nullable restore
-#line 15 "C:\Users\Kuba\Desktop\Hospital-App-\Views\Appointment\ReserveAppointment.cshtml"
+#line 15 "C:\Users\Scran\source\repos\Hospital2\Views\Appointment\ReserveAppointment.cshtml"
 __Microsoft_AspNetCore_Mvc_TagHelpers_ValidationSummaryTagHelper.ValidationSummary = global::Microsoft.AspNetCore.Mvc.Rendering.ValidationSummary.ModelOnly;
 
 #line default
@@ -112,7 +112,7 @@ __Microsoft_AspNetCore_Mvc_TagHelpers_ValidationSummaryTagHelper.ValidationSumma
                 __Microsoft_AspNetCore_Mvc_TagHelpers_LabelTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.TagHelpers.LabelTagHelper>();
                 __tagHelperExecutionContext.Add(__Microsoft_AspNetCore_Mvc_TagHelpers_LabelTagHelper);
 #nullable restore
-#line 17 "C:\Users\Kuba\Desktop\Hospital-App-\Views\Appointment\ReserveAppointment.cshtml"
+#line 17 "C:\Users\Scran\source\repos\Hospital2\Views\Appointment\ReserveAppointment.cshtml"
 __Microsoft_AspNetCore_Mvc_TagHelpers_LabelTagHelper.For = ModelExpressionProvider.CreateModelExpression(ViewData, __model => __model.date);
 
 #line default
@@ -137,7 +137,7 @@ __Microsoft_AspNetCore_Mvc_TagHelpers_LabelTagHelper.For = ModelExpressionProvid
                 __tagHelperStringValueBuffer = EndWriteTagHelperAttribute();
                 __tagHelperExecutionContext.AddHtmlAttribute("readonly", Html.Raw(__tagHelperStringValueBuffer), global::Microsoft.AspNetCore.Razor.TagHelpers.HtmlAttributeValueStyle.Minimized);
 #nullable restore
-#line 18 "C:\Users\Kuba\Desktop\Hospital-App-\Views\Appointment\ReserveAppointment.cshtml"
+#line 18 "C:\Users\Scran\source\repos\Hospital2\Views\Appointment\ReserveAppointment.cshtml"
 __Microsoft_AspNetCore_Mvc_TagHelpers_InputTagHelper.For = ModelExpressionProvider.CreateModelExpression(ViewData, __model => __model.date);
 
 #line default
@@ -159,7 +159,7 @@ __Microsoft_AspNetCore_Mvc_TagHelpers_InputTagHelper.For = ModelExpressionProvid
                 __Microsoft_AspNetCore_Mvc_TagHelpers_ValidationMessageTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.TagHelpers.ValidationMessageTagHelper>();
                 __tagHelperExecutionContext.Add(__Microsoft_AspNetCore_Mvc_TagHelpers_ValidationMessageTagHelper);
 #nullable restore
-#line 19 "C:\Users\Kuba\Desktop\Hospital-App-\Views\Appointment\ReserveAppointment.cshtml"
+#line 19 "C:\Users\Scran\source\repos\Hospital2\Views\Appointment\ReserveAppointment.cshtml"
 __Microsoft_AspNetCore_Mvc_TagHelpers_ValidationMessageTagHelper.For = ModelExpressionProvider.CreateModelExpression(ViewData, __model => __model.date);
 
 #line default

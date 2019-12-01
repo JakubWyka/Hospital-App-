@@ -13,21 +13,21 @@ namespace AspNetCore
     using Microsoft.AspNetCore.Mvc.Rendering;
     using Microsoft.AspNetCore.Mvc.ViewFeatures;
 #nullable restore
-#line 1 "C:\Users\Kuba\Desktop\Hospital-App-\Views\_ViewImports.cshtml"
+#line 1 "C:\Users\Scran\source\repos\Hospital2\Views\_ViewImports.cshtml"
 using Hospital;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 2 "C:\Users\Kuba\Desktop\Hospital-App-\Views\_ViewImports.cshtml"
+#line 2 "C:\Users\Scran\source\repos\Hospital2\Views\_ViewImports.cshtml"
 using Hospital.Models;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 3 "C:\Users\Kuba\Desktop\Hospital-App-\Views\Shared\_Layout.cshtml"
+#line 3 "C:\Users\Scran\source\repos\Hospital2\Views\Shared\_Layout.cshtml"
 using Microsoft.AspNetCore.Identity;
 
 #line default
@@ -91,7 +91,7 @@ using Microsoft.AspNetCore.Identity;
             __tagHelperExecutionContext = __tagHelperScopeManager.Begin("head", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "a6ce77f24738b7763ba95c343ed906988413bf1a10503", async() => {
                 WriteLiteral("\r\n    <meta charset=\"utf-8\" />\r\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" />\r\n    <title>");
 #nullable restore
-#line 10 "C:\Users\Kuba\Desktop\Hospital-App-\Views\Shared\_Layout.cshtml"
+#line 10 "C:\Users\Scran\source\repos\Hospital2\Views\Shared\_Layout.cshtml"
       Write(ViewData["Title"]);
 
 #line default
@@ -171,7 +171,7 @@ using Microsoft.AspNetCore.Identity;
                     <ul class=""navbar-nav flex-grow-1"">
 ");
 #nullable restore
-#line 25 "C:\Users\Kuba\Desktop\Hospital-App-\Views\Shared\_Layout.cshtml"
+#line 25 "C:\Users\Scran\source\repos\Hospital2\Views\Shared\_Layout.cshtml"
                          if (SignInManager.IsSignedIn(User))
                         {
 
@@ -201,7 +201,7 @@ using Microsoft.AspNetCore.Identity;
                 __tagHelperExecutionContext = __tagHelperScopeManager.End();
                 WriteLiteral("\r\n                            </li>\r\n");
 #nullable restore
-#line 30 "C:\Users\Kuba\Desktop\Hospital-App-\Views\Shared\_Layout.cshtml"
+#line 30 "C:\Users\Scran\source\repos\Hospital2\Views\Shared\_Layout.cshtml"
                              if (User.IsInRole("Doctor") || User.IsInRole("Admin"))
                             {
 
@@ -231,7 +231,7 @@ using Microsoft.AspNetCore.Identity;
                 __tagHelperExecutionContext = __tagHelperScopeManager.End();
                 WriteLiteral("\r\n                                </li>\r\n");
 #nullable restore
-#line 35 "C:\Users\Kuba\Desktop\Hospital-App-\Views\Shared\_Layout.cshtml"
+#line 35 "C:\Users\Scran\source\repos\Hospital2\Views\Shared\_Layout.cshtml"
                             }
 
 #line default

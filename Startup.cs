@@ -4,6 +4,10 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using DinkToPdf;
+using DinkToPdf.Contracts;
+using Hospital.Controllers;
+using Hospital.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -22,16 +26,29 @@ namespace Hospital
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            //this.patientController = patientController;
         }
 
         public IConfiguration Configuration { get; }
+
+        //public PatientController patientController;
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
             services.AddMvc();
-            services.AddDbContext<UserContext>();
+
+            services.AddDistributedMemoryCache();
+
+            services.AddDistributedSqlServerCache(options =>
+            {
+                options.ConnectionString = @"Server=(localdb)\MSSQLLocalDB;Database=Hospital;Trusted_Connection=True;";
+                options.SchemaName = "dbo";
+                options.TableName = "TestCache";
+            });
+
+            services.AddDbContext<HostpitalContext>();
 
             services.Configure<IdentityOptions>(options =>
             {
@@ -99,8 +116,9 @@ namespace Hospital
             });
             using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
             {
-                var context = serviceScope.ServiceProvider.GetRequiredService<UserContext>();
+                var context = serviceScope.ServiceProvider.GetRequiredService<HostpitalContext>();
                 context.Database.EnsureCreated();
+                
                 
                 context.Database.ExecuteSqlCommand("DROP TABLE IF EXISTS dbo.Appointments");
                 context.Database.ExecuteSqlCommand("DROP TABLE IF EXISTS dbo.Patients");
@@ -133,11 +151,11 @@ namespace Hospital
                 }
             }
 
-            AddUser(serviceProvider, "root@root.pl", "root12", "Admin").Wait();
-            AddUser(serviceProvider, "a1@a1.pl", "123123", "Patient", "Patient1").Wait();
-            AddUser(serviceProvider, "a2@a2.pl", "123123", "Patient", "Patient2").Wait();
-            AddUser(serviceProvider, "b1@b1.pl", "123123", "Doctor", "Doctor1").Wait();
-            AddUser(serviceProvider, "b2@b2.pl", "123123", "Doctor", "Doctor2").Wait();
+            //AddUser(serviceProvider, "root@root.pl", "root12", "Admin").Wait();
+            //AddUser(serviceProvider, "a1@a1.pl", "123123", "Patient", "Patient1").Wait();
+            //AddUser(serviceProvider, "a2@a2.pl", "123123", "Patient", "Patient2").Wait();
+            //AddUser(serviceProvider, "b1@b1.pl", "123123", "Doctor", "Doctor1").Wait();
+            //AddUser(serviceProvider, "b2@b2.pl", "123123", "Doctor", "Doctor2").Wait();
 
         }
 
@@ -167,14 +185,14 @@ namespace Hospital
                     {
                         var doctor = new Models.Doctor { name = fullName };
                         doctor.userId = user.Id;
-                        var doctorController = System.Web.Mvc.DependencyResolver.Current.GetService<Controllers.DoctorController>();
+                        var doctorController = DependencyResolver.Current.GetService<Controllers.DoctorController>();
                         doctorController.CreateDoctor(doctor);
                     }
                     else if (role == "Patient")
                     {
                         var patient = new Models.Patient { name = fullName };
                         patient.userId = user.Id;
-                        var patientController = System.Web.Mvc.DependencyResolver.Current.GetService<Controllers.PatientController>();
+                        var patientController = DependencyResolver.Current.GetService<Controllers.PatientController>();
                         patientController.CreatePatient(patient);
                     }
                 }

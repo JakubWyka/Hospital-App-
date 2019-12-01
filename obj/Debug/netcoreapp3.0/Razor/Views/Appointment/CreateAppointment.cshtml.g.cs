@@ -13,21 +13,21 @@ namespace AspNetCore
     using Microsoft.AspNetCore.Mvc.Rendering;
     using Microsoft.AspNetCore.Mvc.ViewFeatures;
 #nullable restore
-#line 1 "C:\Users\Kuba\Desktop\Hospital-App-\Views\_ViewImports.cshtml"
+#line 1 "C:\Users\Scran\source\repos\Hospital2\Views\_ViewImports.cshtml"
 using Hospital;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 2 "C:\Users\Kuba\Desktop\Hospital-App-\Views\_ViewImports.cshtml"
+#line 2 "C:\Users\Scran\source\repos\Hospital2\Views\_ViewImports.cshtml"
 using Hospital.Models;
 
 #line default
 #line hidden
 #nullable disable
 #nullable restore
-#line 1 "C:\Users\Kuba\Desktop\Hospital-App-\Views\Appointment\CreateAppointment.cshtml"
+#line 1 "C:\Users\Scran\source\repos\Hospital2\Views\Appointment\CreateAppointment.cshtml"
 using System.Web.Mvc.Html;
 
 #line default

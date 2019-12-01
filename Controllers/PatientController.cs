@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using Hospital.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Distributed;
+using Newtonsoft.Json;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -15,12 +17,39 @@ namespace Hospital.Controllers
     [Route("Patient")]
     public class PatientController : Controller
     {
-        UserContext context = new UserContext();
+        HostpitalContext context = new HostpitalContext();
+
+        private IDistributedCache _distributedCache;
+
+        public PatientController(IDistributedCache distributedCache)
+        {
+            _distributedCache = distributedCache;
+        }
 
         [HttpGet]
         public IActionResult ListPatients()
         {
-            return View(context.Patients.ToList());
+            var json = _distributedCache.GetString("patients");
+
+            List<Patient> patients;
+
+            if(json == null)
+            {
+                patients = context.Patients.ToList();
+                var jsonSave = JsonConvert.SerializeObject(patients);
+                _distributedCache.SetString("patients", jsonSave, new DistributedCacheEntryOptions
+                {
+                    AbsoluteExpirationRelativeToNow = TimeSpan.FromSeconds(10)
+                });
+            }
+            else
+            {
+                patients = JsonConvert.DeserializeObject<List<Patient>>(json);
+            }
+
+
+            
+            return View(patients);
         }
 
         [HttpGet]

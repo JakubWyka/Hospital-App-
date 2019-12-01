@@ -14,7 +14,7 @@ namespace Hospital.Controllers
     [Route("Doctor")]
     public class DoctorController : Controller
     {
-        UserContext context = new UserContext();
+        HostpitalContext context = new HostpitalContext();
 
         [HttpGet]
         public IActionResult ListDoctors()

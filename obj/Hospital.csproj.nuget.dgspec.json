@@ -1,20 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Kuba\\Desktop\\Hospital-App-\\Hospital.csproj": {}
+    "C:\\Users\\Scran\\source\\repos\\Hospital2\\Hospital.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Kuba\\Desktop\\Hospital-App-\\Hospital.csproj": {
+    "C:\\Users\\Scran\\source\\repos\\Hospital2\\Hospital.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Kuba\\Desktop\\Hospital-App-\\Hospital.csproj",
+        "projectUniqueName": "C:\\Users\\Scran\\source\\repos\\Hospital2\\Hospital.csproj",
         "projectName": "Hospital",
-        "projectPath": "C:\\Users\\Kuba\\Desktop\\Hospital-App-\\Hospital.csproj",
-        "packagesPath": "C:\\Users\\Kuba\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Kuba\\Desktop\\Hospital-App-\\obj\\",
+        "projectPath": "C:\\Users\\Scran\\source\\repos\\Hospital2\\Hospital.csproj",
+        "packagesPath": "C:\\Users\\Scran\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Scran\\source\\repos\\Hospital2\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
         "configFilePaths": [
-          "C:\\Users\\Kuba\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Scran\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -68,9 +71,17 @@
               "target": "Package",
               "version": "[3.0.1, )"
             },
+            "Microsoft.Extensions.Caching.SqlServer": {
+              "target": "Package",
+              "version": "[3.0.1, )"
+            },
             "Microsoft.Extensions.Logging.Debug": {
               "target": "Package",
               "version": "[3.0.1, )"
+            },
+            "Microsoft.VisualStudio.Azure.Containers.Tools.Targets": {
+              "target": "Package",
+              "version": "[1.9.5, )"
             },
             "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
               "target": "Package",
