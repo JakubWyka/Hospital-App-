@@ -16,6 +16,8 @@ using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.OpenApi.Models;
+using Swashbuckle.AspNetCore.Swagger;
 
 namespace Hospital
 {
@@ -69,6 +71,20 @@ namespace Hospital
             CustomAssemblyLoadContext context = new CustomAssemblyLoadContext();
            // context.LoadUnmanagedLibrary(Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "..\\..\\..\\")));
             services.AddSingleton(typeof(IConverter), new SynchronizedConverter(new PdfTools()));
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Title = "Swagger Sample",
+                    Version = "v1",
+                    // You can also set Description, Contact, License, TOS...
+                });
+
+                // Configure Swagger to use the xml documentation file
+                var xmlFile = Path.ChangeExtension(typeof(Startup).Assembly.Location, ".xml");
+                c.IncludeXmlComments(xmlFile);
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -116,7 +132,13 @@ namespace Hospital
                 databaseCreator.CreateTables();
                 CreateRoles(services).Wait();
             }
-            
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Swagger Sample");
+            });
+
         }
         private async Task CreateRoles(IServiceProvider serviceProvider)
         {
@@ -169,8 +191,9 @@ namespace Hospital
                     {
                         var doctor = new Models.Doctor { name = fullName };
                         doctor.userId = user.Id;
-                        var doctorController = System.Web.Mvc.DependencyResolver.Current.GetService<Controllers.DoctorController>();
-                        doctorController.CreateDoctor(doctor);
+                        var context = serviceProvider.GetRequiredService<HospitalContext>();
+                        context.Doctors.Add(doctor);
+                        context.SaveChanges();
                     }
                     else if (role == "Patient")
                     {

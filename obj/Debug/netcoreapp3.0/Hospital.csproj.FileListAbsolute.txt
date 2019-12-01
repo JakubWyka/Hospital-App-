@@ -357,8 +357,6 @@ C:\Users\Scran\source\repos\Hospital2\obj\Debug\netcoreapp3.0\Razor\Views\Appoin
 C:\Users\Kuba\Desktop\Hospital-App-\obj\Debug\netcoreapp3.0\Hospital.Properties.Resources.resources
 C:\Users\Kuba\Desktop\Hospital-App-\obj\Debug\netcoreapp3.0\Hospital.Resources.SharedResources.pl-PL.resources
 C:\Users\Kuba\Desktop\Hospital-App-\obj\Debug\netcoreapp3.0\Hospital.csproj.GenerateResource.cache
-C:\Users\Kuba\Desktop\Hospital-App-\obj\Debug\netcoreapp3.0\Hospital.MvcApplicationPartsAssemblyInfo.cs
-C:\Users\Kuba\Desktop\Hospital-App-\obj\Debug\netcoreapp3.0\Hospital.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\Kuba\Desktop\Hospital-App-\bin\Debug\netcoreapp3.0\pl-PL\Hospital.resources.dll
 C:\Users\Kuba\Desktop\Hospital-App-\bin\Debug\netcoreapp3.0\DinkToPdf.dll
 C:\Users\Kuba\Desktop\Hospital-App-\obj\Debug\netcoreapp3.0\pl-PL\Hospital.resources.dll
@@ -368,3 +366,15 @@ C:\Users\Kuba\Desktop\Hospital-App-\obj\Debug\netcoreapp3.0\Razor\Views\Appointm
 C:\Users\Kuba\Desktop\Hospital-App-\obj\Debug\netcoreapp3.0\Razor\Views\Appointment\ViewAppointment.cshtml.g.cs
 C:\Users\Kuba\Desktop\Hospital-App-\obj\Debug\netcoreapp3.0\Razor\Views\Shared\DoctorRegister.cshtml.g.cs
 C:\Users\Kuba\Desktop\Hospital-App-\obj\Debug\netcoreapp3.0\Razor\Views\Shared\PatientRegister.cshtml.g.cs
+C:\Users\Kuba\Desktop\Hospital-App-\bin\Debug\netcoreapp3.0\Hospital.xml
+C:\Users\Kuba\Desktop\Hospital-App-\obj\Debug\netcoreapp3.0\Hospital.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\Kuba\Desktop\Hospital-App-\obj\Debug\netcoreapp3.0\Hospital.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\Kuba\Desktop\Hospital-App-\bin\Debug\netcoreapp3.0\Microsoft.AspNetCore.JsonPatch.dll
+C:\Users\Kuba\Desktop\Hospital-App-\bin\Debug\netcoreapp3.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+C:\Users\Kuba\Desktop\Hospital-App-\bin\Debug\netcoreapp3.0\Microsoft.DotNet.PlatformAbstractions.dll
+C:\Users\Kuba\Desktop\Hospital-App-\bin\Debug\netcoreapp3.0\Microsoft.Extensions.DependencyModel.dll
+C:\Users\Kuba\Desktop\Hospital-App-\bin\Debug\netcoreapp3.0\Microsoft.OpenApi.dll
+C:\Users\Kuba\Desktop\Hospital-App-\bin\Debug\netcoreapp3.0\Newtonsoft.Json.Bson.dll
+C:\Users\Kuba\Desktop\Hospital-App-\bin\Debug\netcoreapp3.0\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\Kuba\Desktop\Hospital-App-\bin\Debug\netcoreapp3.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\Kuba\Desktop\Hospital-App-\bin\Debug\netcoreapp3.0\Swashbuckle.AspNetCore.SwaggerUI.dll
