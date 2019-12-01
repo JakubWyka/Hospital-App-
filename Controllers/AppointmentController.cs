@@ -263,8 +263,8 @@ namespace Hospital.Controllers
             return RedirectToAction("ListAppointments", "Appointment");
         }
 
-
-            public string GetHTMLString()
+        [ApiExplorerSettings(IgnoreApi = true)]
+        public string GetHTMLString()
             {
             var appointments = context.Appointments;
             var pa = context.Patients.ToList();
@@ -309,6 +309,7 @@ namespace Hospital.Controllers
 
                 return sb.ToString();
             }
+        [HttpGet]
         [Route("PDF")]
         public IActionResult CreatePDF(Appointment appointment)
         {

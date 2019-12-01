@@ -77,13 +77,11 @@ namespace Hospital
                 c.SwaggerDoc("v1", new OpenApiInfo
                 {
                     Title = "Swagger Sample",
-                    Version = "v1",
-                    // You can also set Description, Contact, License, TOS...
+                    Version = "v1"
+                    
                 });
 
-                // Configure Swagger to use the xml documentation file
-                var xmlFile = Path.ChangeExtension(typeof(Startup).Assembly.Location, ".xml");
-                c.IncludeXmlComments(xmlFile);
+                c.ResolveConflictingActions(apiDescriptions => apiDescriptions.First());
             });
         }
 
