@@ -18,6 +18,8 @@ using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.OpenApi.Models;
+using Swashbuckle.AspNetCore.Swagger;
 
 namespace Hospital
 {
@@ -26,12 +28,9 @@ namespace Hospital
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
-            //this.patientController = patientController;
         }
 
         public IConfiguration Configuration { get; }
-
-        //public PatientController patientController;
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -84,6 +83,18 @@ namespace Hospital
             CustomAssemblyLoadContext context = new CustomAssemblyLoadContext();
            // context.LoadUnmanagedLibrary(Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "..\\..\\..\\")));
             services.AddSingleton(typeof(IConverter), new SynchronizedConverter(new PdfTools()));
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Title = "Swagger Sample",
+                    Version = "v1"
+                    
+                });
+
+                c.ResolveConflictingActions(apiDescriptions => apiDescriptions.First());
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -116,9 +127,8 @@ namespace Hospital
             });
             using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
             {
-                var context = serviceScope.ServiceProvider.GetRequiredService<HostpitalContext>();
+                var context = serviceScope.ServiceProvider.GetRequiredService<HospitalContext>();
                 context.Database.EnsureCreated();
-                
                 
                 context.Database.ExecuteSqlCommand("DROP TABLE IF EXISTS dbo.Appointments");
                 context.Database.ExecuteSqlCommand("DROP TABLE IF EXISTS dbo.Patients");
@@ -132,7 +142,13 @@ namespace Hospital
                 databaseCreator.CreateTables();
                 CreateRoles(services).Wait();
             }
-            
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Swagger Sample");
+            });
+
         }
         private async Task CreateRoles(IServiceProvider serviceProvider)
         {
@@ -151,11 +167,11 @@ namespace Hospital
                 }
             }
 
-            //AddUser(serviceProvider, "root@root.pl", "root12", "Admin").Wait();
-            //AddUser(serviceProvider, "a1@a1.pl", "123123", "Patient", "Patient1").Wait();
-            //AddUser(serviceProvider, "a2@a2.pl", "123123", "Patient", "Patient2").Wait();
-            //AddUser(serviceProvider, "b1@b1.pl", "123123", "Doctor", "Doctor1").Wait();
-            //AddUser(serviceProvider, "b2@b2.pl", "123123", "Doctor", "Doctor2").Wait();
+            AddUser(serviceProvider, "root@root.pl", "root12", "Admin").Wait();
+            AddUser(serviceProvider, "a1@a1.pl", "123123", "Patient", "Patient1").Wait();
+            AddUser(serviceProvider, "a2@a2.pl", "123123", "Patient", "Patient2").Wait();
+            AddUser(serviceProvider, "b1@b1.pl", "123123", "Doctor", "Doctor1").Wait();
+            AddUser(serviceProvider, "b2@b2.pl", "123123", "Doctor", "Doctor2").Wait();
 
         }
 
@@ -185,15 +201,20 @@ namespace Hospital
                     {
                         var doctor = new Models.Doctor { name = fullName };
                         doctor.userId = user.Id;
-                        var doctorController = DependencyResolver.Current.GetService<Controllers.DoctorController>();
-                        doctorController.CreateDoctor(doctor);
+                        var context = serviceProvider.GetRequiredService<HospitalContext>();
+                        context.Doctors.Add(doctor);
+                        context.SaveChanges();
                     }
                     else if (role == "Patient")
                     {
                         var patient = new Models.Patient { name = fullName };
                         patient.userId = user.Id;
-                        var patientController = DependencyResolver.Current.GetService<Controllers.PatientController>();
-                        patientController.CreatePatient(patient);
+                        //var patientController = System.Web.Mvc.DependencyResolver.Current.GetService<Controllers.PatientController>();
+                       
+                            var context = serviceProvider.GetRequiredService<HospitalContext>();
+                            context.Patients.Add(patient);
+                            context.SaveChanges();
+                        
                     }
                 }
             }

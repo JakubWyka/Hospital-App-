@@ -18,10 +18,11 @@
     "Hospital": {
       "commandName": "Project",
       "launchBrowser": true,
+	  "SwaggerEndPoint": "/swagger/v1/swagger.json",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },
-      "applicationUrl": "https://localhost:5001;http://localhost:5000"
+      "applicationUrl": "https://localhost:44396;http://localhost:5000"
     },
     "Docker": {
       "commandName": "Docker",

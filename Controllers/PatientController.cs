@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Distributed;
 using Newtonsoft.Json;
+using Microsoft.Extensions.Logging;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -17,15 +18,16 @@ namespace Hospital.Controllers
     [Route("Patient")]
     public class PatientController : Controller
     {
-        HostpitalContext context = new HostpitalContext();
-
         private IDistributedCache _distributedCache;
+        private readonly ILogger _logger;
 
-        public PatientController(IDistributedCache distributedCache)
+        public PatientController(ILogger<HomeController> logger, IDistributedCache distributedCache)
         {
+            _logger = logger;
             _distributedCache = distributedCache;
         }
-
+        //UserContext context = new UserContext();
+        HospitalContext context = new HospitalContext();
         [HttpGet]
         public IActionResult ListPatients()
         {
@@ -56,6 +58,7 @@ namespace Hospital.Controllers
         [Route("Create")]
         public IActionResult CreatePatient()
         {
+
             return View();
         }
 
@@ -63,9 +66,10 @@ namespace Hospital.Controllers
         [Route("Create")]
         public IActionResult CreatePatient(Patient patient) 
         {
-                context.Patients.Add(patient);
-                context.SaveChanges();
-                return RedirectToAction("ListPatients", "Patient");   
+             context.Patients.Add(patient);
+             context.SaveChanges();
+            _logger.LogInformation(DateTime.Now.ToString() + ": new Patient added: " + patient.name);
+            return RedirectToAction("ListPatients", "Patient");   
         }
 
         [HttpGet]
@@ -82,6 +86,7 @@ namespace Hospital.Controllers
         {
             context.Patients.Update(patient);
             context.SaveChanges();
+            _logger.LogInformation(DateTime.Now.ToString() + ": Patient edit: " + patient.name);
             return RedirectToAction("ListPatients", "Patient");
         }
 
@@ -91,6 +96,7 @@ namespace Hospital.Controllers
         {
             context.Patients.Remove(context.Patients.Find(id));
             context.SaveChanges();
+            _logger.LogInformation(DateTime.Now.ToString() + ": Patient edit: id:" + id );
             return RedirectToAction("ListPatients", "Patient");
         }
 
@@ -107,7 +113,7 @@ namespace Hospital.Controllers
             p.name = patient.name;
             p.birthDate = patient.birthDate;
             p.userId = patient.userId;
-    
+            _logger.LogInformation(DateTime.Now.ToString() + ": Patient update: " + patient.name);
             context.SaveChanges();
             return RedirectToAction("ListPatients", "Patients");
         }

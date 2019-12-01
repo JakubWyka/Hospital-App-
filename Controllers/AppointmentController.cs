@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Distributed;
+using Microsoft.Extensions.Logging;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -21,12 +22,15 @@ namespace Hospital.Controllers
     [Route("Appointment")]
     public class AppointmentController : Controller
     {
-        HostpitalContext context = new HostpitalContext();
+        // UserContext context = new UserContext();
+        HospitalContext context = new HospitalContext();
         private IConverter _converter;
+        private readonly ILogger _logger;
 
-        public AppointmentController(IConverter converter)
+        public AppointmentController(IConverter converter, ILogger<HomeController> logger)
         {
             _converter = converter;
+            _logger = logger;
         }
         [HttpGet]
         public IActionResult ListAppointments()
@@ -154,6 +158,7 @@ namespace Hospital.Controllers
             }
             context.Appointments.Add(appointment);
             context.SaveChanges();
+            _logger.LogInformation(DateTime.Now.ToString() + ": Appointment added: " + appointment.id);
             return RedirectToAction("ListAppointments", "Appointment");   
         }
 
@@ -172,6 +177,7 @@ namespace Hospital.Controllers
         {
             context.Appointments.Update(appointment);
             context.SaveChanges();
+            _logger.LogInformation(DateTime.Now.ToString() + ": Appointment edit: " + appointment.id);
             return RedirectToAction("ListAppointments", "Appointment");
         }
 
@@ -221,6 +227,7 @@ namespace Hospital.Controllers
             appointment.status = AppointmentStatusType.Reserved;
             context.Appointments.Update(appointment);
             context.SaveChanges();
+            _logger.LogInformation(DateTime.Now.ToString() + ": Appointment reserved: " + appointment.id);
             return RedirectToAction("ListAppointments", "Appointment");
         }
 
@@ -231,6 +238,7 @@ namespace Hospital.Controllers
         {
             context.Appointments.Remove(context.Appointments.Find(id));
             context.SaveChanges();
+            _logger.LogInformation(DateTime.Now.ToString() + ": Appointment deleted: " + id);
             return RedirectToAction("ListAppointments", "Appointment");
         }
 
@@ -252,11 +260,12 @@ namespace Hospital.Controllers
             p.status = appointment.status;
     
             context.SaveChanges();
+            _logger.LogInformation(DateTime.Now.ToString() + ": Appointment updated: " + appointment.id);
             return RedirectToAction("ListAppointments", "Appointment");
         }
 
-
-            public string GetHTMLString()
+        [ApiExplorerSettings(IgnoreApi = true)]
+        public string GetHTMLString()
             {
             var appointments = context.Appointments;
             var pa = context.Patients.ToList();
@@ -301,6 +310,7 @@ namespace Hospital.Controllers
 
                 return sb.ToString();
             }
+        [HttpGet]
         [Route("PDF")]
         public IActionResult CreatePDF(Appointment appointment)
         {
