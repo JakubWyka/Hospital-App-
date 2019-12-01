@@ -47,7 +47,7 @@ namespace Hospital
                 options.TableName = "TestCache";
             });
 
-            services.AddDbContext<HostpitalContext>();
+            services.AddDbContext<HospitalContext>();
 
             services.Configure<IdentityOptions>(options =>
             {

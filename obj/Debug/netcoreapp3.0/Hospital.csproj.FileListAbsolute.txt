@@ -360,3 +360,14 @@ C:\Users\Scran\source\repos\Hospital2\obj\Debug\netcoreapp3.0\pl-PL\Hospital.res
 C:\Users\Scran\source\repos\Hospital2\bin\Debug\netcoreapp3.0\Microsoft.Extensions.Caching.SqlServer.dll
 C:\Users\Scran\source\repos\Hospital2\obj\Debug\netcoreapp3.0\Hospital.MvcApplicationPartsAssemblyInfo.cs
 C:\Users\Scran\source\repos\Hospital2\obj\Debug\netcoreapp3.0\Hospital.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\Scran\source\repos\Hospital2\obj\Debug\netcoreapp3.0\Hospital.csprojAssemblyReference.cache
+C:\Users\Scran\source\repos\Hospital2\bin\Debug\netcoreapp3.0\~
+C:\Users\Scran\source\repos\Hospital2\bin\Debug\netcoreapp3.0\Microsoft.AspNetCore.JsonPatch.dll
+C:\Users\Scran\source\repos\Hospital2\bin\Debug\netcoreapp3.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+C:\Users\Scran\source\repos\Hospital2\bin\Debug\netcoreapp3.0\Microsoft.DotNet.PlatformAbstractions.dll
+C:\Users\Scran\source\repos\Hospital2\bin\Debug\netcoreapp3.0\Microsoft.Extensions.DependencyModel.dll
+C:\Users\Scran\source\repos\Hospital2\bin\Debug\netcoreapp3.0\Microsoft.OpenApi.dll
+C:\Users\Scran\source\repos\Hospital2\bin\Debug\netcoreapp3.0\Newtonsoft.Json.Bson.dll
+C:\Users\Scran\source\repos\Hospital2\bin\Debug\netcoreapp3.0\Swashbuckle.AspNetCore.Swagger.dll
+C:\Users\Scran\source\repos\Hospital2\bin\Debug\netcoreapp3.0\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\Scran\source\repos\Hospital2\bin\Debug\netcoreapp3.0\Swashbuckle.AspNetCore.SwaggerUI.dll

@@ -9,7 +9,8 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>C:\Users\Kuba\Desktop\Hospital-App-\Hospital.xml</DocumentationFile>
+    <DocumentationFile>~
+    </DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
