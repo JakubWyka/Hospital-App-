@@ -8,10 +8,12 @@ using DinkToPdf;
 using DinkToPdf.Contracts;
 using Hospital.Controllers;
 using Hospital.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage;
@@ -94,6 +96,15 @@ namespace Hospital
                 });
 
                 c.ResolveConflictingActions(apiDescriptions => apiDescriptions.First());
+            });
+
+            var policy = new AuthorizationPolicyBuilder()
+                .RequireAuthenticatedUser()
+                .Build();
+
+            services.AddMvc(options =>
+            {
+                options.Filters.Add(new AuthorizeFilter(policy));
             });
         }
 
