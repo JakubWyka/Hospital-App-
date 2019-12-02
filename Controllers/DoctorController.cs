@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Hospital.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.Extensions.Logging;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -13,6 +14,7 @@ namespace Hospital.Controllers
 {
     
     [Route("Doctor")]
+    [ServiceFilter(typeof(UserLogFilter))]
     public class DoctorController : Controller
     {
         private readonly ILogger _logger;
@@ -26,6 +28,7 @@ namespace Hospital.Controllers
         [HttpGet]
         public IActionResult ListDoctors()
         {
+            _logger.LogInformation("listDoctor");
             return View(context.Doctors.ToList());
         }
 
@@ -34,6 +37,7 @@ namespace Hospital.Controllers
         [Route("Create")]
         public IActionResult CreateDoctor()
         {
+            _logger.LogInformation("CreateDoctor");
             return View();
         }
 
@@ -53,6 +57,7 @@ namespace Hospital.Controllers
         [Route("Edit/{id}")]
         public IActionResult EditDoctor(int id)
         {
+            _logger.LogInformation("EditDoctor");
             return View(context.Doctors.Find(id));
         }
 

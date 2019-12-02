@@ -16,6 +16,7 @@ namespace Hospital.Controllers
 {
     [Authorize(Roles = "Admin, Doctor")]
     [Route("Patient")]
+    [ServiceFilter(typeof(UserLogFilter))]
     public class PatientController : Controller
     {
         private IDistributedCache _distributedCache;
@@ -50,7 +51,7 @@ namespace Hospital.Controllers
             }
 
 
-            
+            _logger.LogInformation("ListPatients");
             return View(patients);
         }
 
@@ -58,7 +59,7 @@ namespace Hospital.Controllers
         [Route("Create")]
         public IActionResult CreatePatient()
         {
-
+            _logger.LogInformation("CreatePatient");
             return View();
         }
 
@@ -77,6 +78,7 @@ namespace Hospital.Controllers
         public IActionResult EditPatient(int id)
         {
             var patient = context.Patients.Find(id);
+            _logger.LogInformation("EditPatients");
             return View(patient);
         }
 

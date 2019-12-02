@@ -36,9 +36,14 @@ namespace Hospital
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            services.AddMvc();
+            services.AddMvc(options =>
+            {
+                options.Filters.Add(typeof(UserLogFilter));
+            });
 
             services.AddDistributedMemoryCache();
+
+            services.AddScoped<UserLogFilter>();
 
             services.AddDistributedSqlServerCache(options =>
             {
@@ -134,9 +139,6 @@ namespace Hospital
                 context.Database.ExecuteSqlCommand("DROP TABLE IF EXISTS dbo.Patients");
                 context.Database.ExecuteSqlCommand("DROP TABLE IF EXISTS dbo.Doctors");
 
-
-
-                
 
                 var databaseCreator = context.Database.GetService<IDatabaseCreator>() as RelationalDatabaseCreator;
                 databaseCreator.CreateTables();
