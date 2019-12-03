@@ -25,7 +25,7 @@ namespace Hospital.Models
 
         public string reason { get; set; }
 
-        [DataType(DataType.Date)]
+        [DataType(DataType.DateTime)]
         public DateTime date { get; set; }
 
         public AppointmentStatusType status { get; set; }

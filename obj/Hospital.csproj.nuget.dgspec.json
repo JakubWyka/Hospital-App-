@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Scran\\source\\repos\\Hospital2\\Hospital.csproj": {}
+    "C:\\Users\\mgleba\\source\\repos\\Hospital-App-2\\Hospital.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Scran\\source\\repos\\Hospital2\\Hospital.csproj": {
+    "C:\\Users\\mgleba\\source\\repos\\Hospital-App-2\\Hospital.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Scran\\source\\repos\\Hospital2\\Hospital.csproj",
+        "projectUniqueName": "C:\\Users\\mgleba\\source\\repos\\Hospital-App-2\\Hospital.csproj",
         "projectName": "Hospital",
-        "projectPath": "C:\\Users\\Scran\\source\\repos\\Hospital2\\Hospital.csproj",
-        "packagesPath": "C:\\Users\\Scran\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Scran\\source\\repos\\Hospital2\\obj\\",
+        "projectPath": "C:\\Users\\mgleba\\source\\repos\\Hospital-App-2\\Hospital.csproj",
+        "packagesPath": "C:\\Users\\mgleba\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\mgleba\\source\\repos\\Hospital-App-2\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
         ],
         "configFilePaths": [
-          "C:\\Users\\Scran\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\mgleba\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -41,6 +41,10 @@
       "frameworks": {
         "netcoreapp3.0": {
           "dependencies": {
+            "Bootstrap.v3.Datetimepicker": {
+              "target": "Package",
+              "version": "[4.17.45, )"
+            },
             "DinkToPdf": {
               "target": "Package",
               "version": "[1.0.8, )"

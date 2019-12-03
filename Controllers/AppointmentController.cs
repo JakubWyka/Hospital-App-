@@ -126,6 +126,7 @@ namespace Hospital.Controllers
         public IActionResult CreateAppointment(Appointment appointment) 
         {
             appointment.doctor = context.Doctors.Find(appointment.doctorId);
+            appointment.date = appointment.date.Date.AddHours(appointment.date.Hour);
             if (User.IsInRole("Doctor"))
             {
                 

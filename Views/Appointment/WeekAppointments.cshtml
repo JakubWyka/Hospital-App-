@@ -59,8 +59,6 @@
             {
                 collumn = (int)appointment.date.DayOfWeek - 1;
             }
-            appointment.date = appointment.date.AddHours(13);
-            appointment.date = appointment.date.AddMinutes(23);
             row = appointment.date.Hour;
             cells[(int)collumn,row] = appointment.status.GetDisplayName();
             ids[(int)collumn, row] = appointment.id;
