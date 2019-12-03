@@ -20,6 +20,7 @@ using Microsoft.Extensions.Logging;
 namespace Hospital.Controllers
 {
     [Route("Appointment")]
+    [ServiceFilter(typeof(UserLogFilter))]
     public class AppointmentController : Controller
     {
         // UserContext context = new UserContext();
@@ -36,6 +37,7 @@ namespace Hospital.Controllers
         public IActionResult ListAppointments()
         {
             ViewBag.Doctors = new SelectList(context.Doctors, "id", "name");
+            _logger.LogInformation("listAppointments");
             return View();
         }
 
@@ -43,6 +45,7 @@ namespace Hospital.Controllers
         [HttpGet]
         public IActionResult MyListAppointments()
         {
+            _logger.LogInformation("MyListAppointments");
             return View();
         }
 
@@ -59,6 +62,7 @@ namespace Hospital.Controllers
                 }
             }
             ViewBag.Doctors = new SelectList(context.Doctors, "id", "name");
+            _logger.LogInformation("viewAppointment");
             return View(appointment);
         }
 
@@ -73,8 +77,8 @@ namespace Hospital.Controllers
                 .Where(a => a.date >= date && a.date < date.AddDays(7))
                 .Where(a => a.doctor.id == doctorId)
                 .Include(m => m.doctor).ToList();
-            
 
+            _logger.LogInformation("WeekAppointments");
             return PartialView(appointments);
         }
 
@@ -90,7 +94,7 @@ namespace Hospital.Controllers
                 .Where(a => a.date >= date && a.date < date.AddDays(7))
                 .Where(a => a.doctor.userId == Extenstions.GetUserId(User))
                 .Include(m => m.doctor).ToList();
-
+            _logger.LogInformation("DoctorWeekAppointments");
             return PartialView(appointments);
         }
 
@@ -106,7 +110,7 @@ namespace Hospital.Controllers
                 .Where(a => a.date >= date && a.date < date.AddDays(7))
                 .Where(a => a.patient.userId == Extenstions.GetUserId(User))
                 .Include(m => m.patient).Include(m => m.doctor).ToList();
-
+            _logger.LogInformation("MyWeekAppointments");
             return PartialView(appointments);
         }
 
@@ -117,6 +121,7 @@ namespace Hospital.Controllers
         {
             ViewBag.Patients = new SelectList(context.Patients, "id", "name");
             ViewBag.Doctors = new SelectList(context.Doctors, "id", "name");
+            _logger.LogInformation("createAppointments");
             return View();
         }
 
@@ -199,7 +204,7 @@ namespace Hospital.Controllers
                     return RedirectToAction("ListAppointments", "Appointment");
                 }
             }
-            
+            _logger.LogInformation("ReserveAppointments");
             return View(appointment);
         }
 
@@ -349,6 +354,7 @@ namespace Hospital.Controllers
                                       FileAccess.Read
                                     );
             var fsResult = new FileStreamResult(fileStream, "application/pdf");
+            _logger.LogInformation("generatePDF");
             return fsResult;
 
         }
