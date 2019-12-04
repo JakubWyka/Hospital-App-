@@ -25,6 +25,8 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+
+	
     <PackageReference Include="Microsoft.Extensions.Caching.SqlServer" Version="3.0.1" />
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="3.0.1" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.9.5" />
@@ -34,5 +36,7 @@
     <PackageReference Include="Tiny.RestClient" Version="1.7.0" />
     <PackageReference Include="WebApiContrib.Formatting.JavaScriptSerializer" Version="0.9.4" />
   </ItemGroup>
+
+  <ProjectExtensions><VisualStudio><UserProperties wwwroot_4lib_4bootstrap_4dist_4css_4bootstrap_1css_1map__JsonSchema="" /></VisualStudio></ProjectExtensions>
 
 </Project>

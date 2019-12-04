@@ -237,7 +237,7 @@ namespace Hospital.Controllers
             return RedirectToAction("ListAppointments", "Appointment");
         }
 
-        [Authorize("Admin, Doctor")]
+        [Authorize(Roles = "Admin, Doctor")]
         [HttpPost]
         [Route("Delete")]
         public IActionResult Delete(int id)
@@ -254,19 +254,46 @@ namespace Hospital.Controllers
         
         }
         */
-        [Authorize("Admin, Doctor")]
-        [HttpPut("/{id}")]
+
+
+
+        [Authorize(Roles = "Admin, Doctor")]
+        [HttpPost("Update")]
         public IActionResult UpdateAppointment(Appointment appointment) 
         {
-            Appointment p = context.Appointments.Where(s => s.id == appointment.id).First();
-            p.date = appointment.date;
-            p.doctor = appointment.doctor;
-            p.patient = appointment.patient;
-            p.reason = appointment.reason;
-            p.status = appointment.status;
-    
+            Appointment app = context.Appointments.Include("doctor").Include("patient").Where(a => a.id == appointment.id).FirstOrDefault();
+            var oldDate = app.date;
+
+            app.date = appointment.date.Date.AddHours(appointment.date.Hour);
+            app.status = appointment.status;
+            app.reason = appointment.reason;
+            if (User.IsInRole("Doctor"))
+            {
+
+                var claimsIdentity = User.Identity as ClaimsIdentity;
+                string userIdValue = "null";
+                var userIdClaim = claimsIdentity.Claims.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier);
+                userIdValue = userIdClaim.Value;
+
+
+                if (app.doctor.userId != userIdValue)
+                {
+                    ModelState.AddModelError(string.Empty, "You can only change your appointment");
+                    return View("ViewAppointment");
+                }
+
+
+                List<Appointment> myAppointments = context.Appointments.Where(a => a.doctor.userId == userIdValue && app.date == a.date).ToList();
+                if (app.date != oldDate && myAppointments.Count > 0)
+                {
+                    // Doctor has appointment at that date
+                    ModelState.AddModelError(string.Empty, "You already have appointment at that date");
+                    return View("ViewAppointment");
+                }
+            }
+            context.Appointments.Update(app);
             context.SaveChanges();
-            _logger.LogInformation(DateTime.Now.ToString() + ": Appointment updated: " + appointment.id);
+            _logger.LogInformation(DateTime.Now.ToString() + ": Appointment updated: " + app.id);
             return RedirectToAction("ListAppointments", "Appointment");
         }
 

@@ -6,9 +6,13 @@
 
 <h1>AppointmentsList</h1>
 
-<p>
-    <a asp-action="CreateAppointment">Create New</a>
-</p>
+@if (User.IsInRole("Doctor") || User.IsInRole("Admin"))
+{
+    <p>
+        <a asp-action="CreateAppointment">Create New</a>
+    </p>
+}
+
 
 <div class="form-group">
     <label asp-for="selectedDate" class="control-label"></label>
@@ -33,7 +37,7 @@
     @if (User.IsInRole("Doctor"))
     {
         <script type="text/javascript">
-        $("#selDate").on('change', function () {
+        $("#selDate,#selDoc").on('change', function () {
 
                 $("#divPartial").load('@Url.Action("DoctorWeek","Appointment")' + '/' + $("#selDate").val())
         });
@@ -42,7 +46,7 @@
     else
     {
         <script type="text/javascript">
-        $("#selDate").on('change', function () {
+        $("#selDate,#selDoc").on('change', function () {
 
                 $("#divPartial").load('@Url.Action("Week","Appointment")' + '/' + $("#selDate").val() + '/' + $("#selDoc").val())
         });
