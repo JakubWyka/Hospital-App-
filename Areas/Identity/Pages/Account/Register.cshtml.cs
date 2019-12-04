@@ -18,13 +18,15 @@ using Microsoft.Extensions.Logging;
 
 namespace Hospital.Areas.Identity.Pages.Account
 {
-    [System.Web.Mvc.AllowAnonymous]
+    [Microsoft.AspNetCore.Authorization.AllowAnonymous]
     public class RegisterModel : PageModel
     {
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly UserManager<IdentityUser> _userManager;
         private readonly ILogger<RegisterModel> _logger;
         private readonly IEmailSender _emailSender;
+
+        HospitalContext context = new HospitalContext();
 
         public RegisterModel(
             UserManager<IdentityUser> userManager,
@@ -110,16 +112,16 @@ namespace Hospital.Areas.Identity.Pages.Account
                         await _userManager.AddToRoleAsync(user, "Doctor");
                         var doctor = new Models.Doctor { name = Input.Name, jobSeniority = Input.JobSeniority, specializationType = Input.SpecializationType};
                         doctor.userId = user.Id;
-                        var doctorController = DependencyResolver.Current.GetService<Controllers.DoctorController>();
-                        doctorController.CreateDoctor(doctor);
+                        context.Doctors.Add(doctor);
+                        context.SaveChanges();
                     }
                     else
                     {
                         await _userManager.AddToRoleAsync(user, "Patient");
                         var patient = new Models.Patient { name = Input.Name, birthDate = Input.BirthDate };
                         patient.userId = user.Id;
-                        var patientController = DependencyResolver.Current.GetService<Controllers.PatientController>();
-                        patientController.CreatePatient(patient);
+                        context.Patients.Add(patient);
+                        context.SaveChanges();
                     }
 
                     

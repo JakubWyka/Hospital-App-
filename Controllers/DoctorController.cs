@@ -6,7 +6,9 @@ using Hospital.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using Microsoft.Extensions.Caching.Distributed;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -18,16 +20,35 @@ namespace Hospital.Controllers
     public class DoctorController : Controller
     {
         private readonly ILogger _logger;
+        private readonly IDistributedCache _distributedCache;
 
-        public DoctorController(ILogger<HomeController> logger)
+        public DoctorController(ILogger<HomeController> logger, IDistributedCache distributedCache)
         {
             _logger = logger;
+            _distributedCache = distributedCache;
         }
         // UserContext context = new UserContext();
         HospitalContext context = new HospitalContext();
         [HttpGet]
         public IActionResult ListDoctors()
         {
+            var json = _distributedCache.GetString("doctors");
+
+            List<Doctor> doctors;
+
+            if (json == null)
+            {
+                doctors = context.Doctors.ToList();
+                var jsonSave = JsonConvert.SerializeObject(doctors);
+                _distributedCache.SetString("doctors", jsonSave, new DistributedCacheEntryOptions
+                {
+                    AbsoluteExpirationRelativeToNow = TimeSpan.FromSeconds(10)
+                });
+            }
+            else
+            {
+                doctors = JsonConvert.DeserializeObject<List<Doctor>>(json);
+            }
             _logger.LogInformation("listDoctor");
             return View(context.Doctors.ToList());
         }
