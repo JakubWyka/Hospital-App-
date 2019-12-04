@@ -569,3 +569,4 @@ C:\Users\mgleba\source\repos\Hospital-App-2\obj\Debug\netcoreapp3.0\Hospital.Vie
 C:\Users\mgleba\source\repos\Hospital-App-2\obj\Debug\netcoreapp3.0\Hospital.csproj.CopyComplete
 C:\Users\mgleba\source\repos\Hospital-App-2\obj\Debug\netcoreapp3.0\Hospital.dll
 C:\Users\mgleba\source\repos\Hospital-App-2\obj\Debug\netcoreapp3.0\Hospital.pdb
+C:\Users\mgleba\source\repos\Hospital-App-2\obj\Debug\netcoreapp3.0\Hospital.csprojAssemblyReference.cache

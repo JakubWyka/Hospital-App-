@@ -373,7 +373,7 @@ namespace Hospital.Controllers
                 Objects = { objectSettings }
             };
 
-
+            
             var file = _converter.Convert(pdf);
             // return File(Path.Combine(Directory.GetCurrentDirectory(), "Employee_Report.pdf"), "application/pdf");
             var fileStream = new FileStream(Path.Combine(Directory.GetCurrentDirectory(), "Employee_Report.pdf"),

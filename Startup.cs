@@ -88,7 +88,9 @@ namespace Hospital
                 options.SlidingExpiration = true;
             });
             CustomAssemblyLoadContext context = new CustomAssemblyLoadContext();
-           // context.LoadUnmanagedLibrary(Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "..\\..\\..\\")));
+            context.LoadUnmanagedLibrary(Path.Combine(Directory.GetCurrentDirectory(), "libwkhtmltox.dll"));
+
+            // context.LoadUnmanagedLibrary(Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "..\\..\\..\\")));
             services.AddSingleton(typeof(IConverter), new SynchronizedConverter(new PdfTools()));
 
             services.AddSwaggerGen(c =>
