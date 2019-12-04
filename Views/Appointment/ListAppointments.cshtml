@@ -5,14 +5,16 @@
 }
 
 <h1>AppointmentsList</h1>
-
-@if (User.IsInRole("Doctor") || User.IsInRole("Admin"))
+@if (User.IsInRole("Admin"))
 {
+    <p>
+        <a asp-action="CreatePDF">Download PDF</a>
+    </p>
+
     <p>
         <a asp-action="CreateAppointment">Create New</a>
     </p>
 }
-
 
 <div class="form-group">
     <label asp-for="selectedDate" class="control-label"></label>
