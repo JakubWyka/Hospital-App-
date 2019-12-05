@@ -7,10 +7,12 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.WebUtilities;
 using System;
+using Hospital.Controllers;
 
 namespace Hospital.Areas.Identity.Pages.Account
 {
     [AllowAnonymous]
+    [MiddlewareFilter(typeof(LocalizationPipeline))]
     public class RegisterConfirmationModel : PageModel
     {
         private readonly UserManager<IdentityUser> _userManager;

@@ -17,6 +17,7 @@ namespace Hospital.Controllers
     
     [Route("Doctor")]
     [ServiceFilter(typeof(UserLogFilter))]
+    [MiddlewareFilter(typeof(LocalizationPipeline))]
     public class DoctorController : Controller
     {
         private readonly ILogger _logger;

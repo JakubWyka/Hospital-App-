@@ -11,10 +11,12 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
+using Hospital.Controllers;
 
 namespace Hospital.Areas.Identity.Pages.Account
 {
     [AllowAnonymous]
+    [MiddlewareFilter(typeof(LocalizationPipeline))]
     public class LoginModel : PageModel
     {
         private readonly UserManager<IdentityUser> _userManager;

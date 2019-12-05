@@ -6,6 +6,7 @@ using System.Text;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using Hospital.Controllers;
 using Hospital.Models;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
@@ -19,6 +20,7 @@ using Microsoft.Extensions.Logging;
 namespace Hospital.Areas.Identity.Pages.Account
 {
     [Microsoft.AspNetCore.Authorization.AllowAnonymous]
+    [MiddlewareFilter(typeof(LocalizationPipeline))]
     public class RegisterModel : PageModel
     {
         private readonly SignInManager<IdentityUser> _signInManager;

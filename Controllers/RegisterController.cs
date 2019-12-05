@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Hospital.Controllers
 {
     [Route("Register")]
+    [MiddlewareFilter(typeof(LocalizationPipeline))]
     public class RegisterController : Controller
     {
         [HttpGet]

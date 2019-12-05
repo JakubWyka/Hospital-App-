@@ -8,6 +8,7 @@ using System.Runtime.Serialization.Json;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Mvc;
+using Hospital.Controllers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -19,6 +20,7 @@ using Tiny.RestClient;
 namespace Hospital.Areas.Identity.Pages.Account
 {
     [Microsoft.AspNetCore.Authorization.AllowAnonymous]
+    [MiddlewareFilter(typeof(LocalizationPipeline))]
     public class ConfirmEmailModel : PageModel
     {
         private readonly UserManager<IdentityUser> _userManager;

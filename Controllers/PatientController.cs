@@ -17,6 +17,7 @@ namespace Hospital.Controllers
     [Authorize(Roles = "Admin, Doctor")]
     [Route("Patient")]
     [ServiceFilter(typeof(UserLogFilter))]
+    [MiddlewareFilter(typeof(LocalizationPipeline))]
     public class PatientController : Controller
     {
         private IDistributedCache _distributedCache;

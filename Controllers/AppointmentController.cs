@@ -21,6 +21,7 @@ namespace Hospital.Controllers
 {
     [Route("Appointment")]
     [ServiceFilter(typeof(UserLogFilter))]
+    [MiddlewareFilter(typeof(LocalizationPipeline))]
     public class AppointmentController : Controller
     {
         // UserContext context = new UserContext();

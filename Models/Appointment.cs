@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Hospital.Controllers;
+using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -12,6 +14,7 @@ namespace Hospital.Models
         [Display(Name = "Open")] Open,
         [Display(Name = "Reserved")] Reserved
     }
+    [MiddlewareFilter(typeof(LocalizationPipeline))]
     public class Appointment
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

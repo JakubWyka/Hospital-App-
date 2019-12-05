@@ -9,6 +9,7 @@ using Hospital.Models;
 
 namespace Hospital.Controllers
 {
+    [MiddlewareFilter(typeof(LocalizationPipeline))]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
