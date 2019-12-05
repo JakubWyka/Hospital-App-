@@ -1,7 +1,9 @@
 ﻿@model IEnumerable<Hospital.Models.Appointment>
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
 
 @{
-    ViewData["Title"] = "AppointmentsTab";
+    ViewData["Title"] = Localizer["Appointments Tab"];
 }
 
 @{
@@ -14,7 +16,7 @@
     // Sunday casted to int gives 0 but that will not work for us, we need 7 to be able to calculate number of empty cells correctly
     int dayOfWeekFirst = ((int)firstDay.DayOfWeek > 0) ? (int)firstDay.DayOfWeek : 7;
     int dayOfWeekLast = ((int)lastDay.DayOfWeek > 0) ? (int)lastDay.DayOfWeek : 7;
-    String[,] cells = new String[7,24];
+    String[,] cells = new String[7, 24];
     int[,] ids = new int[7, 24];
 }
 
@@ -22,28 +24,28 @@
     <thead>
         <tr>
             <th>
-                Hours
+                @Localizer["Hours"]
             </th>
             <th>
-                Monday
+                @Localizer["Monday"]
             </th>
             <th>
-                Thuesday
+                @Localizer["Tuesday"]
             </th>
             <th>
-                Wednesday
+                @Localizer["Wednesday"]
             </th>
             <th>
-                Thursday
+                @Localizer["Thursday"]
             </th>
             <th>
-                Friday
+                @Localizer["Friday"]
             </th>
             <th>
-                Satuday
+                @Localizer["Saturday"]
             </th>
             <th>
-                Sunday
+                @Localizer["Sunday"]
             </th>
         </tr>
     </thead>
@@ -60,34 +62,34 @@
                 collumn = (int)appointment.date.DayOfWeek - 1;
             }
             row = appointment.date.Hour;
-            cells[(int)collumn,row] = appointment.status.GetDisplayName();
+            cells[(int)collumn, row] = appointment.status.GetDisplayName();
             ids[(int)collumn, row] = appointment.id;
         }
         @for (int a = 0; a < 24; a++)
         {
-        <tr align="center">
-            <td class="border" style="padding:0px; margin:0px;">@a:00</td>
-            <!-- filling up space of previous month -->
-            @for (int b = 0; b < 7; b++)
-            {
-                if (cells[b, a] == "Reserved")
+            <tr align="center">
+                <td class="border" style="padding:0px; margin:0px;">@a:00</td>
+                <!-- filling up space of previous month -->
+                @for (int b = 0; b < 7; b++)
                 {
-                    @:<td id=@("cellc"+b+"r"+a) class="border" style="padding:0px; background-color:orangered; margin:0px;">
-                        <a style="padding:0px; margin:0px;" class="nav-link text-dark" asp-area="" asp-controller="Appointment" asp-action="View" asp-route-id=@ids[b,a]>@cells[b, a]</a>
-                    @:</td>
+                    if (cells[b, a] == "Reserved")
+                    {
+                        @:<td id=@("cellc"+b+"r"+a) class="border" style="padding:0px; background-color:orangered; margin:0px;">
+                            <a style="padding:0px; margin:0px;" class="nav-link text-dark" asp-area="" asp-controller="Appointment" asp-action="View" asp-route-id=@ids[b,a]>@cells[b, a]</a>
+                        @:</td>
+                    }
+                    else if (cells[b, a] == "Open")
+                    {
+                        @:<td id=@("cellc"+b+"r"+a) class="border" style="padding:0px; background-color:lawngreen; margin:0px;">
+                            <a style="padding:0px; margin:0px;" class="nav-link text-dark" asp-area="" asp-controller="Appointment" asp-action="View" asp-route-id=@ids[b,a]>@cells[b, a]</a>
+                        @:</td>
+                    }
+                    else
+                    {
+                        @:<td id=@("cellc"+b+"r"+a) class="border" style="padding:0px; margin:0px;"></td>
+                    }
                 }
-                else if (cells[b, a] == "Open")
-                {
-                    @:<td id=@("cellc"+b+"r"+a) class="border" style="padding:0px; background-color:lawngreen; margin:0px;">
-                        <a style="padding:0px; margin:0px;" class="nav-link text-dark" asp-area="" asp-controller="Appointment" asp-action="View" asp-route-id=@ids[b,a]>@cells[b, a]</a>
-                    @:</td>
-                }
-                else
-                {
-                    @:<td id=@("cellc"+b+"r"+a) class="border" style="padding:0px; margin:0px;"></td>
-                }
-            }
-        </tr>
+            </tr>
         }
 
     </tbody>

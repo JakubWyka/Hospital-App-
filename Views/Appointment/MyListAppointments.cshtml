@@ -1,13 +1,15 @@
 ﻿@model Hospital.Models.AppointmentView
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
 
 @{
-    ViewData["Title"] = "MyAppointmentsList";
+    ViewData["Title"] = Localizer["My Appointments List"];
 }
 
-<h1>AppointmentsList</h1>
+<h1>@Localizer["Appointments List"]</h1>
 
 <div class="form-group">
-    <label asp-for="selectedDate" class="control-label"></label>
+    <label class="control-label">@Localizer["Selected Date"]</label>
     <input asp-for="selectedDate" class="form-control" id="selDate" />
     <span asp-validation-for="selectedDate" class="text-danger"></span>
 </div>
@@ -17,10 +19,10 @@
 
 @section Scripts {
 
-        <script type="text/javascript">
+    <script type="text/javascript">
         $("#selDate").on('change', function () {
 
                 $("#divPartial").load('@Url.Action("MyWeek","Appointment")' + '/' + $("#selDate").val())
         });
-        </script>
+    </script>
 }

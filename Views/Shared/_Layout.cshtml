@@ -4,10 +4,12 @@
 
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Hospital</title>
+    <title>@ViewData["Title"] - @Localizer["Hospital"]</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
@@ -15,7 +17,7 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Hospital</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">@Localizer["Hospital"]</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -25,24 +27,24 @@
                         @if (SignInManager.IsSignedIn(User))
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">@Localizer["Home"]</a>
                             </li>
                             @if (User.IsInRole("Doctor") || User.IsInRole("Admin"))
                             {
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Patient" asp-action="ListPatients">Patients List</a>
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Patient" asp-action="ListPatients">@Localizer["Patients List"]</a>
                                 </li>
                             }
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Doctor" asp-action="ListDoctors">Doctors List</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Doctor" asp-action="ListDoctors">@Localizer["Doctors List"]</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Appointment" asp-action="ListAppointments">Appointments List</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Appointment" asp-action="ListAppointments">@Localizer["Appointments List"]</a>
                             </li>
                             @if (User.IsInRole("Patient"))
                             {
                                 <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Appointment" asp-action="MyListAppointments">My Appointments List</a>
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Appointment" asp-action="MyListAppointments">@Localizer["My Appointments List"]</a>
                                 </li>
                             }
                         }
@@ -60,7 +62,12 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2019 - Hospital - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; @Localizer["2019 - Hospital -"] <a asp-area="" asp-controller="Home" asp-action="Privacy">@Localizer["Privacy"]</a>
+
+
+                @Html.ActionLink("EN", ViewContext.RouteData.Values["action"] as string, ViewContext.RouteData.Values["controller"] as string, new { culture = "en-US" })
+                @Html.ActionLink("PL", ViewContext.RouteData.Values["action"] as string, ViewContext.RouteData.Values["controller"] as string, new { culture = "pl-PL" })
+
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>

@@ -9,7 +9,6 @@ using System.Threading.Tasks;
 
 namespace Hospital.Models
 {
-    [MiddlewareFilter(typeof(LocalizationPipeline))]
     public enum SpecializationType
     {
         [Display(Name = "Cardiologist")] Cardiologist,
@@ -17,6 +16,8 @@ namespace Hospital.Models
         [Display(Name = "Dermatologist")] Dermatologist,
         [Display(Name = "Neurologist")] Neurologist
     }
+
+    [MiddlewareFilter(typeof(LocalizationPipeline))]
     public class Doctor
     {
        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]

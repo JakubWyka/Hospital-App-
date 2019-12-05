@@ -1,13 +1,15 @@
 ﻿@model Hospital.Models.Doctor
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
 
 @{
-    ViewData["Title"] = "EditDoctor";
+    ViewData["Title"] = Localizer["Edit Doctor"];
 }
 
-<h1>EditDoctor</h1>
+<h1>@Localizer["Edit Doctor"]</h1>
 
-<h4>Doctor</h4>
-<hr/>
+<h4>@Localizer["Doctor"]</h4>
+<hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="EditDoctor">
@@ -15,28 +17,28 @@
             @Html.HiddenFor(m => m.userId)
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="name" class="control-label"></label>
+                <label class="control-label">@Localizer["Name"]</label>
                 <input asp-for="name" class="form-control" />
                 <span asp-validation-for="name" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="specializationType" class="control-label"></label>
+                <label class="control-label">@Localizer["Specialization type"]</label>
                 @Html.DropDownListFor(m => m.specializationType, Html.GetEnumSelectList(typeof(Hospital.Models.SpecializationType)), new { @class = "form-control" })
             </div>
             <div class="form-group">
-                <label asp-for="jobSeniority" class="control-label"></label>
+                <label class="control-label">@Localizer["Job seniority"]</label>
                 <input asp-for="jobSeniority" class="form-control" />
                 <span asp-validation-for="jobSeniority" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <input type="submit" value=@Localizer["Save"] class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">@Localizer["Back to List"]</a>
 </div>
 
 @section Scripts {

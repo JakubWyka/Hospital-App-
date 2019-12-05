@@ -1,22 +1,24 @@
 ﻿@model IEnumerable<Hospital.Models.Patient>
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
 
 @{
-    ViewData["Title"] = "PatientsList";
+    ViewData["Title"] = Localizer["Patients List"];
 }
 
-<h1>PatientsList</h1>
+<h1>@Localizer["Patients List"]</h1>
 
 <p>
-    <a asp-action="CreatePatient">Create New</a>
+    <a asp-action="CreatePatient">@Localizer["Create New"]</a>
 </p>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.name)
+                @Localizer["Name"]
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.birthDate)
+                @Localizer["Birth date"]
             </th>
             <th></th>
         </tr>
@@ -33,13 +35,13 @@
                 </td>
                 <td>
                     <form method="get" class="horizontal">
-                        <button asp-action="Edit" asp-route-id="@item.id">Edit</button>
+                        <button asp-action="Edit" asp-route-id="@item.id">@Localizer["Edit"]</button>
                     </form>
                     <form method="get" class="horizontal">
-                        <button asp-action="Details" asp-route-id="@item.id">Details</button>
+                        <button asp-action="Details" asp-route-id="@item.id">@Localizer["Details"]</button>
                     </form>
                     <form method="post" class="horizontal">
-                        <button asp-action="Delete" asp-route-id="@item.id">Delete</button>
+                        <button asp-action="Delete" asp-route-id="@item.id">@Localizer["Delete"]</button>
                     </form>
                 </td>
             </tr>

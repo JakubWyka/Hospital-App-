@@ -1,10 +1,12 @@
 ﻿@model Hospital.Areas.Identity.Pages.Account.RegisterModel
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
 @{
-    ViewData["Title"] = "PatientRegister";
+    ViewData["Title"] = Localizer["Patient Register"];
 }
 
 <div class="form-group">
-    <label asp-for="Input.BirthDate" class="control-label"></label>
+    <label class="control-label">@Localizer["Birth Date"]</label>
     <input asp-for="Input.BirthDate" class="form-control" />
     <span asp-validation-for="Input.BirthDate" class="text-danger"></span>
 </div>

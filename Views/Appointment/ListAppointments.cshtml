@@ -1,23 +1,26 @@
 ﻿@model Hospital.Models.AppointmentView
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
 
 @{
-    ViewData["Title"] = "AppointmentsList";
+    ViewData["Title"] = Localizer["Appointments List"];
 }
 
-<h1>AppointmentsList</h1>
+<h1>@Localizer["Appointments List"]</h1>
+
 @if (User.IsInRole("Admin"))
 {
     <p>
-        <a asp-action="CreatePDF">Download PDF</a>
+        <a asp-action="CreatePDF">@Localizer["Download PDF"]</a>
     </p>
 
     <p>
-        <a asp-action="CreateAppointment">Create New</a>
+        <a asp-action="CreateAppointment">@Localizer["Create New"]</a>
     </p>
 }
 
 <div class="form-group">
-    <label asp-for="selectedDate" class="control-label"></label>
+    <label class="control-label">@Localizer["Selected Date"]</label>
     <input asp-for="selectedDate" class="form-control" id="selDate" />
     <span asp-validation-for="selectedDate" class="text-danger"></span>
 </div>
@@ -25,7 +28,7 @@
 @if (!User.IsInRole("Doctor"))
 {
     <div class="form-group">
-        <label asp-for="selectedDoctor" class="control-label"></label>
+        <label class="control-label">@Localizer["Selected Doctor"]</label>
         <span asp-validation-for="selectedDoctor" class="text-danger"></span>
         @Html.DropDownList("doctor", (IEnumerable<SelectListItem>)ViewBag.Doctors, htmlAttributes: new { @id = "selDoc", @class = "form-control" })
     </div>

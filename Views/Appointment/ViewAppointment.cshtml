@@ -1,16 +1,18 @@
 ﻿@using System.Web.Mvc.Html
 @using Microsoft.AspNetCore.Identity
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
 @model Hospital.Models.Appointment
 
 
 @{
-    ViewData["Title"] = "ViewAppointment";
+    ViewData["Title"] = Localizer["View Appointment"];
 }
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
-<h1>ViewAppointment</h1>
+<h1>@Localizer["View Appointment"]</h1>
 
-<h4>Appointment</h4>
+<h4>@Localizer["Appointment"]</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -22,20 +24,20 @@
             @if (User.IsInRole("Admin") || User.IsInRole("Patient"))
             {
                 <div class="form-group">
-                    <label class="control-label">Doctor name</label>
+                    <label class="control-label">@Localizer["Doctor's name"]</label>
                     <input asp-for="doctor.name" readonly class="form-control" />
                 </div>
             }
             @if (User.IsInRole("Admin") || User.IsInRole("Doctor"))
             {
                 <div class="form-group">
-                    <label class="control-label">Patient name</label>
+                    <label class="control-label">@Localizer["Patient's name"]</label>
                     <input asp-for="patient.name" readonly class="form-control" />
                 </div>
             }
 
             <div class="form-group">
-                <label asp-for="date" class="control-label"></label>
+                <label class="control-label">@Localizer["Date"]</label>
                 @if (User.IsInRole("Patient"))
                 {
                     <input asp-for="date" readonly class="form-control" />
@@ -46,7 +48,7 @@
                 }
             </div>
             <div class="form-group">
-                <label asp-for="reason" class="control-label"></label>
+                <label class="control-label">@Localizer["Reason"]</label>
                 @if (User.IsInRole("Patient"))
                 {
                     @Html.TextAreaFor(m => m.reason, new { @readonly = true, @class = "form-control" })
@@ -74,7 +76,7 @@
             @if (User.IsInRole("Admin") || User.IsInRole("Doctor"))
             {
                 <div class="form-group">
-                    <input type="submit" value="Update" class="btn btn-primary" />
+                    <input type="submit" value="@Localizer["Update"]" class="btn btn-primary" />
                 </div>
             }
         </form>
@@ -82,7 +84,7 @@
 </div>
 
 <div>
-    <a href="javascript:history.back()">Back to List</a>
+    <a href="javascript:history.back()">@Localizer["Back to List"]</a>
 </div>
 
 @section Scripts {

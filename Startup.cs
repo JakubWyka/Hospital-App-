@@ -134,8 +134,8 @@ namespace Hospital
             };
             options.RequestCultureProviders = new[]
             {
-                // new QueryStringRequestCultureProvider() { Options = options } 
-                 new RouteDataRequestCultureProvider() { Options = options }
+                 new QueryStringRequestCultureProvider() { Options = options } 
+                // new RouteDataRequestCultureProvider() { Options = options }
             };
 
             services.AddSingleton(options);

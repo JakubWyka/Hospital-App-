@@ -1,7 +1,9 @@
 ﻿@page
 @model RegisterModel
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
 @{
-    ViewData["Title"] = "Register";
+    ViewData["Title"] = Localizer["Register"];
 }
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
@@ -12,51 +14,51 @@
     <div class="col-md-4">
 
         <form asp-route-returnUrl="@Model.ReturnUrl" method="post">
-            <h4>Create a new account.</h4>
+            <h4>@Localizer["Create a new account."]</h4>
             <hr />
             @if (SignInManager.IsSignedIn(User))
             {
                 @if (User.IsInRole("Admin"))
                 {
-                    
-                    
+
+
                     <div>
-                        Doctor
-                        @Html.RadioButtonFor(m => m.Input.RegisterVar, "Doctor", new { @id = "r1",  @checked = "checked" })
+                        @Localizer["Doctor"]
+                        @Html.RadioButtonFor(m => m.Input.RegisterVar, "Doctor", new { @id = "r1", @checked = "checked" })
                     </div>
                     <div>
-                        Patient
+                        @Localizer["Patient"]
                         @Html.RadioButtonFor(m => m.Input.RegisterVar, "Patient", new { @id = "r2" })
                     </div>
                 }
             }
             <div asp-validation-summary="All" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="Input.Name"></label>
+                <label>@Localizer["Input name"]</label>
                 <input asp-for="Input.Name" class="form-control" />
                 <span asp-validation-for="Input.Name" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Input.Email"></label>
+                <label>@Localizer["Input email"]</label>
                 <input asp-for="Input.Email" class="form-control" />
                 <span asp-validation-for="Input.Email" class="text-danger"></span>
             </div>
 
 
             <div class="form-group">
-                <label asp-for="Input.Password"></label>
+                <label>@Localizer["Input password"]</label>
                 <input asp-for="Input.Password" class="form-control" />
                 <span asp-validation-for="Input.Password" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Input.ConfirmPassword"></label>
+                <label>@Localizer["Repeat password"]</label>
                 <input asp-for="Input.ConfirmPassword" class="form-control" />
                 <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
             </div>
             <div id="divPartial">
                 @Html.Partial("PatientRegister")
             </div>
-            <button type="submit" class="btn btn-primary">Register</button>
+            <button type="submit" class="btn btn-primary">@Localizer["Register"]</button>
         </form>
     </div>
 </div>

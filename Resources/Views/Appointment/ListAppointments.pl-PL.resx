@@ -123,6 +123,9 @@
   <data name="Create New" xml:space="preserve">
     <value>Stwórz nową</value>
   </data>
+  <data name="Download PDF" xml:space="preserve">
+    <value>Pobierz plik PDF</value>
+  </data>
   <data name="Selected Date" xml:space="preserve">
     <value>Wybrana data</value>
   </data>

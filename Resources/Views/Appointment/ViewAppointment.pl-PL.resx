@@ -135,6 +135,9 @@
   <data name="Reason" xml:space="preserve">
     <value>Przyczyna</value>
   </data>
+  <data name="Update" xml:space="preserve">
+    <value>Aktualizuj</value>
+  </data>
   <data name="View Appointment" xml:space="preserve">
     <value>Wyświetl wizytę</value>
   </data>

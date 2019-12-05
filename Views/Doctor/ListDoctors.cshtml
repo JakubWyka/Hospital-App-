@@ -1,53 +1,56 @@
 ﻿@model IEnumerable<Hospital.Models.Doctor>
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
 
 @{
-    ViewData["Title"] = "DoctorsList";
+    ViewData["Title"] = Localizer["Doctors List"];
 }
 
-<h1>DoctorsList</h1>
+<h1>@Localizer["Doctors List"]</h1>
 
 <p>
-    <a asp-action="CreateDoctor">Create New</a>
+    <a asp-action="CreateDoctor">@Localizer["Create New"]</a>
 </p>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.name)
+                @Localizer["Name"]
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.specializationType)
+                @Localizer["Specialization type"]
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.jobSeniority)
+                @Localizer["Job seniority"]
             </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.specializationType)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.jobSeniority)
-            </td>
-            <td>
-                <form method="get" class="horizontal">
-                    <button asp-action="Edit" asp-route-id="@item.id">Edit</button>
-                </form>
-                <form method="get" class="horizontal">
-                    <button asp-action="Details" asp-route-id="@item.id">Details</button>
-                </form>
-                <form method="post" class="horizontal">
-                    <button asp-action="Delete" asp-route-id="@item.id">Delete</button>
-                </form>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.specializationType)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.jobSeniority)
+                </td>
+                <td>
+                    <form method="get" class="horizontal">
+                        <button asp-action="Edit" asp-route-id="@item.id">@Localizer["Edit"]</button>
+                    </form>
+                    <form method="get" class="horizontal">
+                        <button asp-action="Details" asp-route-id="@item.id">@Localizer["Details"]</button>
+                    </form>
+                    <form method="post" class="horizontal">
+                        <button asp-action="Delete" asp-route-id="@item.id">@Localizer["Delete"]</button>
+                    </form>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
