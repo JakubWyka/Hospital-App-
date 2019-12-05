@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -13,7 +14,10 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Localization;
+using Microsoft.AspNetCore.Localization.Routing;
 using Microsoft.AspNetCore.Mvc.Authorization;
+using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage;
@@ -116,10 +120,34 @@ namespace Hospital
                 .RequireAuthenticatedUser()
                 .Build();
 
+            var supportedCultures = new[]
+            {
+                new CultureInfo("pl-PL"),
+                new CultureInfo("en-US"),
+            };
+
+            var options = new RequestLocalizationOptions()
+            {
+                DefaultRequestCulture = new RequestCulture(culture: "en-US", uiCulture: "en-US"),
+                SupportedCultures = supportedCultures,
+                SupportedUICultures = supportedCultures
+            };
+            options.RequestCultureProviders = new[]
+            {
+                // new QueryStringRequestCultureProvider() { Options = options } 
+                 new RouteDataRequestCultureProvider() { Options = options }
+            };
+
+            services.AddSingleton(options);
+
+            services.AddLocalization(options => {
+                options.ResourcesPath = "Resources";
+            });
+
             services.AddMvc(options =>
             {
                 options.Filters.Add(new AuthorizeFilter(policy));
-            });
+            }).AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix).AddDataAnnotationsLocalization();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
